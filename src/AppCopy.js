@@ -1,11 +1,10 @@
 import { Button, Grid, ThemeProvider } from '@mui/material'
 import printJS from 'print-js'
 import React, { useState } from 'react'
-import logo from './assets/images/logo512.png'
 // import Test from './pages/test/test'
 import { theme } from './assets/styles/theme'
 
-import FileUpload from './components/common/FileUpload'
+import FileUpload from './components/common/FileUpload/FileUpload'
 import { Field, Form, Formik } from 'formik'
 function App() {
   const [FileType, setFileType] = useState('')
@@ -14,9 +13,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <button type="button" onClick={() => printJS(logo, 'image')}>
-        Print PDF with Message
-      </button>
       <Formik initialValues={{ attachReceipt: '' }} onSubmit={(values) => {}}>
         {({ errors, touched, setFieldValue, values, resetForm, dirty }) => (
           <Form>

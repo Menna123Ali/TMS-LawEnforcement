@@ -38,10 +38,15 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
     textTransform: 'capitalize',
     fontWeight: '600',
   },
+  '& .menuService': {
+    color: '#707070',
+    TextDecoder: 'underline',
+  },
 }))
 
 export const UserMenuContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
 }))
+
 export default StyledUserMenu

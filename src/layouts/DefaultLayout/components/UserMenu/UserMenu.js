@@ -1,8 +1,8 @@
-import { Avatar, Badge, Button, Popover, Tooltip, Typography } from '@mui/material'
+import { Avatar, Badge, Button, Popover, Tooltip, Typography, MenuItem, ListItemIcon, ListItemText, ClickAwayListener } from '@mui/material'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AvatarImage from '../../../../assets/images/logo-mini.png'
-import NotificationsIcon from '@mui/icons-material/Notifications'
+import { Notifications as NotificationsIcon, TouchApp as TouchAppIcon, ExitToApp as ExitToAppIcon, SettingsApplications as MiscellaneousServicesIcon } from '@mui/icons-material'
 import { UserMenuContainer } from './UserMenu.styles'
 import Icon from '@mui/material/Icon'
 import BlockIcon from '@mui/icons-material/Block'
@@ -12,8 +12,7 @@ const UserMenu = ({ className }) => {
   const [userMenu, setUserMenu] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null)
-  const [anchorElReject, setAnchorElReject] = React.useState(null)
-  const [openRejectionList, setOpenRejectionList] = useState(false)
+  const [counter, setopencounter] = useState(false)
 
   const modules = [
     {
@@ -5171,19 +5170,70 @@ const UserMenu = ({ className }) => {
     //   console.log('Error in notfications')
     // }
   }
-  const rejectedApp = []
-  const getRejectionApplications = async (event) => {
-    console.log('rejectionlist')
-    setAnchorElReject(event.currentTarget)
-
-    setOpenRejectionList(true)
-  }
   const userMenuClose = () => {
     // appDispatch({ type: "LOGOUT" })
     // appDispatch({ type: "FLASHMESSAGE", flashMessage: "You've been logged out", flashMessageType: "success" })
 
     setUserMenu(null)
   }
+
+  const handleLogout = () => {
+    userMenuClose()
+    // props.history.push('/logout')
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const Viewall = () => {
+    // props.history.push('/notifications')
+    setAnchorEl(null)
+  }
+  const clickAwayHandler = () => setIsOpen(false)
+
+  const MyPopper = ({ clickAwayHandler, setopencounter, counter, anchorEl }) => (
+    <ClickAwayListener onClickAway={clickAwayHandler}>
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        classes={{
+          paper: 'py-8',
+        }}
+      >
+        <div style={{ overflowY: 'hidden', height: '100%', width: '500px' }}>
+          <div style={{ height: '65px', backgroundColor: 'rgb(21,68,122)', display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+            <span style={{ paddingLeft: '15px', color: 'white', fontSize: '20px' }}>Notification Box</span>
+          </div>
+
+          <div style={{ maxHeight: 'calc(100vh - 58vh)', overflowY: 'auto' }}>
+                <div style={{ padding: '15px', width: '100%', textAlign: 'center' }}>
+                  <span style={{ fontWeight: 'bold', fontSize: '14px' }}>
+                    no notifications
+                    <br></br>
+                  </span>
+                </div>
+          </div>
+
+          <div style={{ border: '1px solid rgb(247,144,30)', borderTop: '0px', borderRight: '0px', height: '25px', backgroundColor: 'rgb(21,68,122)', display: 'flex', justifyContent: 'flex-end', cursor: 'pointer', alignItems: 'center' }}>
+            <span onClick={() => Viewall()} style={{ paddingRight: '15px', color: 'white', fontSize: '12px', cursor: 'pointer' }}>
+              view all
+            </span>
+          </div>
+        </div>
+      </Popover>
+    </ClickAwayListener>
+  )
+
   return (
     <div className={className}>
       <div className="favMenu">
@@ -5238,13 +5288,7 @@ const UserMenu = ({ className }) => {
               <NotificationsIcon />
             </Avatar>
           </Button>
-          <Tooltip title="Rejected Application">
-            <Button className="min-h-40" onClick={getRejectionApplications}>
-              <Badge badgeContent={rejectedApp.length} color="primary" classes={{ anchorOriginTopRightRectangle: classes.badge }}>
-                <BlockIcon style={{ color: 'red', fontSize: 43 }} />
-              </Badge>
-            </Button>
-          </Tooltip>
+         
         </div>
         <Popover
           open={Boolean(userMenu)}
@@ -5269,7 +5313,7 @@ const UserMenu = ({ className }) => {
             <ListItemText primary="Logout" />
           </MenuItem>
 
-          <Link to="/Service" className={classes.MenuService}>
+          <Link to="/Service" className='menuService'>
             <MenuItem>
               <ListItemIcon>
                 <MiscellaneousServicesIcon />
@@ -5278,7 +5322,7 @@ const UserMenu = ({ className }) => {
             </MenuItem>
           </Link>
 
-          <Link to="/Agent" className={classes.MenuService}>
+          <Link to="/Agent" className='menuService'>
             <MenuItem>
               <ListItemIcon>
                 <TouchAppIcon />
@@ -5287,9 +5331,8 @@ const UserMenu = ({ className }) => {
             </MenuItem>
           </Link>
         </Popover>
-        {/* {<RejectionList {...{ clickAwayHandler: clickAwayHandlerReject, isOpen: openRejectionList, setopencounter, counter, anchorEl: anchorElReject }} />}
         {<MyPopper {...{ clickAwayHandler, isOpen, setopencounter, counter, anchorEl }} />}
-        {<SendNotification />} */}
+        {/* {<SendNotification />} */}
       </UserMenuContainer>
     </div>
   )

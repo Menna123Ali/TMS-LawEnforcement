@@ -1,11 +1,12 @@
-import { Avatar, Badge, Button, Popover, Tooltip, Typography, MenuItem, ListItemIcon, ListItemText, ClickAwayListener } from '@mui/material'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import AvatarImage from '../../../../assets/images/logo-mini.png'
+import { Avatar, Badge, Button, Popover, Typography, MenuItem, ListItemIcon, ListItemText } from '@mui/material'
 import { Notifications as NotificationsIcon, TouchApp as TouchAppIcon, ExitToApp as ExitToAppIcon, SettingsApplications as MiscellaneousServicesIcon } from '@mui/icons-material'
 import { UserMenuContainer } from './UserMenu.styles'
 import Icon from '@mui/material/Icon'
-import BlockIcon from '@mui/icons-material/Block'
+
+import AvatarImage from '../../../../assets/images/logo-mini.png'
+import NotificationPopper from '../NotificationPopper'
 
 const UserMenu = ({ className }) => {
   console.log(className)
@@ -5182,57 +5183,7 @@ const UserMenu = ({ className }) => {
     // props.history.push('/logout')
   }
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const Viewall = () => {
-    // props.history.push('/notifications')
-    setAnchorEl(null)
-  }
   const clickAwayHandler = () => setIsOpen(false)
-
-  const MyPopper = ({ clickAwayHandler, setopencounter, counter, anchorEl }) => (
-    <ClickAwayListener onClickAway={clickAwayHandler}>
-      <Popover
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        classes={{
-          paper: 'py-8',
-        }}
-      >
-        <div style={{ overflowY: 'hidden', height: '100%', width: '500px' }}>
-          <div style={{ height: '65px', backgroundColor: 'rgb(21,68,122)', display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-            <span style={{ paddingLeft: '15px', color: 'white', fontSize: '20px' }}>Notification Box</span>
-          </div>
-
-          <div style={{ maxHeight: 'calc(100vh - 58vh)', overflowY: 'auto' }}>
-                <div style={{ padding: '15px', width: '100%', textAlign: 'center' }}>
-                  <span style={{ fontWeight: 'bold', fontSize: '14px' }}>
-                    no notifications
-                    <br></br>
-                  </span>
-                </div>
-          </div>
-
-          <div style={{ border: '1px solid rgb(247,144,30)', borderTop: '0px', borderRight: '0px', height: '25px', backgroundColor: 'rgb(21,68,122)', display: 'flex', justifyContent: 'flex-end', cursor: 'pointer', alignItems: 'center' }}>
-            <span onClick={() => Viewall()} style={{ paddingRight: '15px', color: 'white', fontSize: '12px', cursor: 'pointer' }}>
-              view all
-            </span>
-          </div>
-        </div>
-      </Popover>
-    </ClickAwayListener>
-  )
 
   return (
     <div className={className}>
@@ -5288,7 +5239,6 @@ const UserMenu = ({ className }) => {
               <NotificationsIcon />
             </Avatar>
           </Button>
-         
         </div>
         <Popover
           open={Boolean(userMenu)}
@@ -5313,7 +5263,7 @@ const UserMenu = ({ className }) => {
             <ListItemText primary="Logout" />
           </MenuItem>
 
-          <Link to="/Service" className='menuService'>
+          <Link to="/Service" className="menuService">
             <MenuItem>
               <ListItemIcon>
                 <MiscellaneousServicesIcon />
@@ -5322,7 +5272,7 @@ const UserMenu = ({ className }) => {
             </MenuItem>
           </Link>
 
-          <Link to="/Agent" className='menuService'>
+          <Link to="/Agent" className="menuService">
             <MenuItem>
               <ListItemIcon>
                 <TouchAppIcon />
@@ -5331,7 +5281,7 @@ const UserMenu = ({ className }) => {
             </MenuItem>
           </Link>
         </Popover>
-        {<MyPopper {...{ clickAwayHandler, isOpen, setopencounter, counter, anchorEl }} />}
+        {<NotificationPopper {...{ clickAwayHandler, isOpen, setopencounter, counter, anchorEl, setAnchorEl }} />}
         {/* {<SendNotification />} */}
       </UserMenuContainer>
     </div>

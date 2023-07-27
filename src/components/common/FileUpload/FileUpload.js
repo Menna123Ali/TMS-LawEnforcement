@@ -9,6 +9,7 @@ import ImgViewer from '../ImgViewer/ImgViewer'
 
 const FileUpload = (props) => {
   const { className } = props
+  console.log('className', className)
   // const { appState } = useContext(AppContext)
   const canvasRef = useRef()
   const fileUpload = React.createRef()
@@ -52,12 +53,10 @@ const FileUpload = (props) => {
       //       props.setFileType(null)
       //     } else {
       //       setShowClear('block')
-
       //       props.setFieldValue(props.field.name, 'data:image/png;base64, ' + received_msg_uploadPhoto)
       //       setImagePreviewUrl('data:image/png;base64, ' + received_msg_uploadPhoto)
       //       props.setFileType('image/png')
       //     }
-
       //     ws.close()
       //   }
       //   ws.onclose = function () {}
@@ -86,11 +85,11 @@ const FileUpload = (props) => {
     return comp
   }
 
-  const avatarStyle = clsx('bigAvatar', file || props.form.values[name] ? ['primaryBack'] : ['primaryBack'], {
+  const avatarStyle = clsx('bigAvatar', file || props.form.values[name] ? 'primaryBack' : 'primaryBack', {
     errorBack: errorMessage,
   })
 
-  function handleClear() {
+  const handleClear = () => {
     setShowClear('none')
 
     props.setFieldValue(props.field.name, '')

@@ -3,19 +3,18 @@ import { Outlet } from 'react-router-dom'
 import { Box } from '@mui/material'
 import StyledAppBarMain from './components/AppBarMain/AppBarMain.styles'
 import StyledAppDrawer from './components/AppDrawer/AppDrawer.styles'
-import { drawerWidth } from '../../utils/constants/common'
 import { Main } from './DefaultLayout.styles'
 
 const DefaultLayoutContainer = ({ className, ...props }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [openPersistentDrawer, setOpenPersistentDrawer] = React.useState(true)
+  const [openPersistentDrawer, setopenPersistentDrawer] = React.useState(true)
 
   function handlePersistentDrawerOpen() {
-    setOpenPersistentDrawer(true)
+    setopenPersistentDrawer(true)
   }
 
   function handlePersistentDrawerClose() {
-    setOpenPersistentDrawer(false)
+    setopenPersistentDrawer(false)
   }
   function handleDrawerToggle() {
     setMobileOpen((prevState) => !prevState)

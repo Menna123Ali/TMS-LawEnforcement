@@ -3,7 +3,7 @@ import DefaultLayoutContainer from './DefaultLayout'
 import { drawerWidth } from '../../utils/constants/common'
 
 const StyledDefaultLayout = styled(DefaultLayoutContainer)(({ theme }) => ({}))
-export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, openPersistentDrawer }) => ({
+export const Main = styled('main')(({ theme, openPersistentDrawer }) => ({
   flexGrow: 1,
   minHeight: '100vh',
   width: 'fit-content',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, ThemeProvider } from '@mui/material'
+import { Box, Grid, ThemeProvider } from '@mui/material'
 import printJS from 'print-js'
 // import Test from './pages/test/test'
 import { theme } from './assets/styles/theme'
@@ -8,6 +8,7 @@ import FileUpload from './components/common/FileUpload/FileUpload'
 import { Field, Form, Formik } from 'formik'
 import FormikAutocomplete from './components/common/FormikAutocomplete/FormikAutocomplete'
 import StyledButton from './components/common/AppButton/AppButton.styles'
+import AdvancedTable from './components/common/AdvancedTable/AdvancedTable'
 function App() {
   const [FileType, setFileType] = useState('')
   const [file, setFile] = useState(null)
@@ -420,6 +421,9 @@ function App() {
         {/* <Test /> */}
         {/* <FileUpload setFileType={setFileType} setFile={setFile} setFieldValue={setFieldValue} /> */}
       </Grid>
+      <Box>
+        <AdvancedTable/>
+      </Box>
     </ThemeProvider>
   )
 }

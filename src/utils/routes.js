@@ -1,26 +1,36 @@
 import React from 'react'
 import { Navigate, useRoutes } from 'react-router-dom'
-import DefaultLayout from '../layouts/DefaultLayout'
+import DefaultLayout from '../layouts/DefaultLayout/DefaultLayout.styles'
+import PayInvoice from '../pages/invoice/PayInvoice/PayInvoice'
+import ProtectedRoute from '../components/common/ProtectedRoute/ProtectedRoute'
 const Login = React.lazy(() => import('../pages/Login/Login.styles'))
-
-// import ProtectedRoute from '../components/common/ProtectedRoute/ProtectedRoute'
-const Page404 = React.lazy(() => import('../components/common/Page404/Page404.styles'))
+const Logout = React.lazy(() => import('../pages/Logout/Logout'))
+const CreateInvoice = React.lazy(() => import('../pages/invoice/CreateInvoice/CreateInvoice.styles'))
+const Page404 = React.lazy(() => import('../pages/Page404/Page404.styles'))
 
 const Routes = () => {
   return useRoutes([
     {
       path: '/',
-      element: <DefaultLayout />,
+      element: (
+        <ProtectedRoute>
+          <DefaultLayout />
+        </ProtectedRoute>
+      ),
       children: [
         {
-          path: '/',
-          element: <Page404 />,
+          path: 'invoices-billing',
+          element: '',
+          children: [
+            { path: 'create-invoice', element: <CreateInvoice /> },
+            { path: 'pay-invoice', element: <PayInvoice /> },
+          ],
         },
       ],
     },
 
     { path: 'login', element: <Login /> },
-    { path: 'logout', element: <Page404 /> },
+    { path: 'logout', element: <Logout /> },
     { path: '/404', element: <Page404 /> },
     { path: '*', element: <Navigate to="/404" replace /> },
   ])

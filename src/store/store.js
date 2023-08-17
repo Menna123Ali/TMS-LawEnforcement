@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import CountReducer from './testSlice'
-import TestCounter from './test2Slice'
+import { appSlice } from './AppSlice'
 
 const reducer = combineReducers({
-  count: CountReducer,
-  test: TestCounter,
+  [appSlice.name]: appSlice.reducer,
 })
 
 export default configureStore({

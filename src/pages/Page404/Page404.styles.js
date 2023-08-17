@@ -1,6 +1,5 @@
 import { styled } from '@mui/material'
 import Page404 from './Page404'
-import palette from '../../../assets/styles/colors.scss'
 
 const StyledPage404 = styled(Page404)(({ theme }) => ({
   display: 'flex',
@@ -12,26 +11,26 @@ const StyledPage404 = styled(Page404)(({ theme }) => ({
 
   '& > .errorIcon': {
     fontSize: '120px',
-    color: palette.orange,
+    color: theme.palette.secondary.main,
   },
   '& > .text404': {
     fontSize: '90px',
-    color: palette.primary,
+    color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
   '& > .errorText': {
     fontSize: '40px',
-    color: palette.primary,
+    color: theme.palette.primary.main,
     fontWeight: 'normal',
   },
   '& > .errorAuthorizedText': {
     fontSize: '30px',
-    color: palette.primary,
+    color: theme.palette.primary.main,
     fontWeight: 'normal',
   },
   '& > .contactMessage': {
     fontSize: '20px',
-    color: palette.primary,
+    color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
 }))

@@ -1,6 +1,6 @@
 import { IconButton, styled } from '@mui/material'
 import AppBarMain from './AppBarMain'
-import { drawerWidth } from '../../../../utils/constants/common'
+import { drawerWidth } from '../../../../utils/constants/config'
 
 const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
@@ -9,6 +9,7 @@ const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) =>
   }),
   background: '#fff',
   boxShadow: 'none',
+
   ...(openPersistentDrawer && {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,

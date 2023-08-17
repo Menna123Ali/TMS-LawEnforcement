@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 import DefaultLayoutContainer from './DefaultLayout'
-import { drawerWidth } from '../../utils/constants/common'
+import { drawerWidth } from '../../utils/constants/config'
 
 const StyledDefaultLayout = styled(DefaultLayoutContainer)(({ theme }) => ({}))
 export const Main = styled('main')(({ theme, openPersistentDrawer }) => ({

@@ -1,5 +1,5 @@
-import { Box, Drawer, Hidden, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, styled, useTheme } from '@mui/material'
-import { drawerWidth } from '../../../../utils/constants/common'
+import { Box, Drawer, useTheme } from '@mui/material'
+import { drawerWidth } from '../../../../utils/constants/config'
 import StyledDrawerContent from '../DrawerContent/DrawerContent.styles'
 
 const AppDrawer = ({ className, mobileOpen, handleDrawerToggle, openPersistentDrawer, handlePersistentDrawerClose, ...props }) => {

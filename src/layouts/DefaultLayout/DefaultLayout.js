@@ -4,21 +4,10 @@ import { Box } from '@mui/material'
 import StyledAppBarMain from './components/AppBarMain/AppBarMain.styles'
 import StyledAppDrawer from './components/AppDrawer/AppDrawer.styles'
 import { Main } from './DefaultLayout.styles'
+import Logic from './logic'
 
-const DefaultLayoutContainer = ({ className, ...props }) => {
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [openPersistentDrawer, setopenPersistentDrawer] = React.useState(true)
-
-  function handlePersistentDrawerOpen() {
-    setopenPersistentDrawer(true)
-  }
-
-  function handlePersistentDrawerClose() {
-    setopenPersistentDrawer(false)
-  }
-  function handleDrawerToggle() {
-    setMobileOpen((prevState) => !prevState)
-  }
+const DefaultLayoutContainer = () => {
+  const { mobileOpen, openPersistentDrawer, handlePersistentDrawerOpen, handlePersistentDrawerClose, handleDrawerToggle } = Logic()
 
   return (
     <Box sx={{ display: 'flex' }}>

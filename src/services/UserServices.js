@@ -1,37 +1,32 @@
 import { securityAxios } from './axios'
 
-export const login = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
-  try {
-    await securityAxios({
-      method: 'POST',
-      url: '/api/Auth/Login',
-      data: {
-        username: payload.username,
-        password: payload.password,
-      },
+export const login = ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  securityAxios({
+    method: 'POST',
+    url: '/api/Auth/Login',
+    data: {
+      username: payload.username,
+      password: payload.password,
+    },
+  })
+    .then(function (response) {
+      onSuccess(response)
     })
-      .then(function (response) {
-        onSuccess(response)
-      })
-      .catch((error) => {
-        var msg = 'Server Request Failed'
-        if (error.response != null) {
-          if (error.response.status === 401) {
-            msg = 'Session ended or unautherized access'
-          } else {
-            msg = error.response.data.message
-          }
+    .catch((error) => {
+      var msg = 'Server Request Failed'
+      if (error.response != null) {
+        if (error.response.status === 401) {
+          msg = 'Session ended or unautherized access'
+        } else {
+          msg = error.response.data.message
         }
-        alert('errrrss')
-        onError(msg)
-      })
-      .finally(() => {
-        onComplete()
-      })
-  } catch (e) {
-    console.log(e.response) // undefined
-    alert('err')
-  }
+      }
+
+      onError(msg)
+    })
+    .finally(() => {
+      onComplete()
+    })
 }
 export const checkToken = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
   securityAxios(

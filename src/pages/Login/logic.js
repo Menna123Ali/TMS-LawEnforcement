@@ -4,6 +4,7 @@ import { appSlice } from '../../store/AppSlice'
 import { useDispatch } from 'react-redux'
 import { LOCAL_STORAGE_CONSTANT } from '../../utils/constants/config'
 import { useNavigate } from 'react-router-dom'
+import UseFlashMessage from '../../utils/hooks/UseFlashMessage'
 
 const Logic = () => {
   const { update: appUpdate } = appSlice.actions
@@ -13,6 +14,7 @@ const Logic = () => {
     errorMessage: null,
   })
   const navigate = useNavigate()
+  const { addFlashMessage } = UseFlashMessage()
 
   const handleFormSubmit = async (values) => {
     setData({
@@ -37,49 +39,16 @@ const Logic = () => {
           ])
         )
         navigate('/')
-        // appDispatch({ type: 'FLASHMESSAGE', flashMessage: 'Welcome ' + response.data.userData.name, flashMessageType: 'success' })
+        addFlashMessage({ type: 'success', message: 'Welcome ' + response.data.userData.name })
       },
       onError: (e) => {
         setData({
           isSubmitting: false,
           errorMessage: e,
         })
+        addFlashMessage({ type: 'error', message: e })
       },
     })
-
-    // securityAxios({
-    //   method: 'POST',
-    //   url: '/api/Auth/Login',
-    //   data: {
-    //     username: values.username,
-    //     password: values.password,
-    //   },
-    // })
-    //   .then(function (response) {
-    //     // appDispatch({ type: 'LOGIN', payload: response.data })
-    //     // appDispatch({ type: 'FLASHMESSAGE', flashMessage: 'Welcome ' + response.data.userData.name, flashMessageType: 'success' })
-    //   })
-    //   .catch((e) => {
-    //     var msg = 'Server Request Failed'
-    //     if (e.response != null) {
-    //       if (e.response.status === 401) {
-    //         msg = 'Session ended or unautherized access'
-    //         // appDispatch({ type: 'LOGOUT' })
-    //       } else {
-    //         msg = e.response.data.message
-    //       }
-    //     }
-    //     // appDispatch({
-    //     //   type: 'FLASHMESSAGE',
-    //     //   flashMessage: msg,
-    //     //   flashMessageType: 'error',
-    //     // })
-
-    //     setData({
-    //       isSubmitting: false,
-    //       errorMessage: msg,
-    //     })
-    //   })
   }
 
   return { data, handleFormSubmit }

@@ -5180,7 +5180,7 @@ const UserMenu = ({ className }) => {
 
   const handleLogout = () => {
     userMenuClose()
-    // props.history.push('/logout')
+    window.location.href = '/logout'
   }
 
   const clickAwayHandler = () => setIsOpen(false)

@@ -5,6 +5,7 @@ import Routes from './utils/routes'
 import { Provider } from 'react-redux'
 import store from './store/store'
 import InactivityTimer from './components/common/InactivityTimer/InactivityTimer'
+import FlashMessagePortal from './components/common/AppFlashMessage/FlashMessagePortal'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <InactivityTimer />
       <Provider store={store}>
         <Routes />
+        <FlashMessagePortal autoClose={true} autoCloseTime={5000} />
       </Provider>
     </ThemeProvider>
   )

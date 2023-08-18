@@ -9,7 +9,7 @@ const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) =>
   }),
   background: '#fff',
   boxShadow: 'none',
-
+  height: 60,
   ...(openPersistentDrawer && {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,

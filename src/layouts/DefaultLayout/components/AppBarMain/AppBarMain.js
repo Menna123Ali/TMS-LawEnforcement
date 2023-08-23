@@ -8,7 +8,7 @@ const AppBarMain = ({ className, openPersistentDrawer, handleDrawerToggle, handl
   console.log(props)
   return (
     <AppBar position="fixed" className={className}>
-      <Toolbar>
+      <Toolbar className='toolbar'>
         {!openPersistentDrawer && (
           <Hidden smDown implementation="css">
             <MenuButton color="inherit" aria-label="open drawer" edge="start" onClick={handlePersistentDrawerOpen}>

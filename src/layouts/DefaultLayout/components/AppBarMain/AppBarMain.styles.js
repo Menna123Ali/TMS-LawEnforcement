@@ -1,6 +1,6 @@
 import { IconButton, styled } from '@mui/material'
 import AppBarMain from './AppBarMain'
-import { drawerWidth } from '../../../../utils/constants/config'
+import { appBarHeight, drawerWidth } from '../../../../utils/constants/config'
 
 const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
@@ -9,7 +9,6 @@ const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) =>
   }),
   background: '#fff',
   boxShadow: 'none',
-  height: 60,
   ...(openPersistentDrawer && {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -20,9 +19,13 @@ const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) =>
       }),
     },
   }),
+  '& .toolbar': {
+    minHeight: `${appBarHeight}`
+  }
 }))
 export const UserMenuContainer = styled('div')(({ theme }) => ({
-  flex: '1',
+  flex: 1,
+  width: '100%'
 }))
 export const MenuButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.primary.main,

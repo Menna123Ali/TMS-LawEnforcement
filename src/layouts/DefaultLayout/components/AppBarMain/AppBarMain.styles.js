@@ -9,7 +9,6 @@ const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) =>
   }),
   background: '#fff',
   boxShadow: 'none',
-  height: 60,
   ...(openPersistentDrawer && {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -20,9 +19,14 @@ const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) =>
       }),
     },
   }),
+  '& .toolbar': {
+    // minHeight: `${appBarHeight}`
+  }
 }))
 export const UserMenuContainer = styled('div')(({ theme }) => ({
-  flex: '1',
+  flex: 1,
+  width: '100%',
+  overflow:'hidden'
 }))
 export const MenuButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.primary.main,

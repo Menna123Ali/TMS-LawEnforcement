@@ -6,46 +6,54 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
   flex: '1',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  marginLeft: 'auto',
+  
   [theme.breakpoints.down('md')]: {
     display: 'block',
+    maxWidth: '96%'
   },
-  // flexDirection: 'column',
+  '& .notification-btn':{
+    paddingRight: 0
+  },
+  '& .cards-container': {
+    [theme.breakpoints.up('md')]: {
+    maxWidth: '60%'
+    },
+  },
+
   '& .cards': {
     display: 'flex',
     flexGrow: 1,
+    gap: '16px',
     padding: '5px 0px',
     listStyle: 'none',
     overflowX: 'auto',
+    maxWidth: '100%',
     scrollSnapType: 'x mandatory',
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '75%',
-    },
   },
   '& .card': {
     display: 'flex',
     flexDirection: 'column',
-    flex: ' 0 0 100%',
     padding: '0px',
     scrollSnapAlign: 'start',
     transition: 'all 0.2s',
+    [theme.breakpoints.up('xs')]: {
+      minWidth: 'calc(50% - 8px)',
+    },
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 'calc(33% - 16px)',
+    },
     [theme.breakpoints.up('md')]: {
-      flexBasis: 'calc(calc(100% / 5) - 15px)',
-      '&:not(:last-child)': {
-        marginRight: '17px',
-      },
+      minWidth: '150px',
     },
-    [theme.breakpoints.down('md')]: {
-      flexBasis: 'calc(calc(100% / 3) - 20px)',
-      '&:not(:last-child)': {
-        marginRight: '30px',
-      },
-    },
-    [theme.breakpoints.down('xs')]: {
-      flexBasis: 'calc(50% - 5px)',
-      '&:not(:last-child)': {
-        marginRight: '10px',
-      },
-    },
+
+    '& .card-txt': {
+      width: '100%',
+      display: 'block',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden'
+    }
   },
   '&  .favMenu': {
     flex: '1',
@@ -53,9 +61,9 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
     alignSelf: 'center',
   },
   '&  .favBTN': {
-    minWidth: 'fit-content',
     fontWeight: 600,
     minHeight: '40px',
+    minWidth: 'auto',
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     border: `1px solid rgba(247,144,30, 0.2)`,
@@ -77,7 +85,7 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
     //   width: (window.innerWidth - 29) * 0.323,
     //   fontSize: 10,
     // },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('s')]: {
       fontSize: 10,
     },
   },
@@ -106,6 +114,7 @@ export const UserMenuContainer = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   justifyContent: 'flex-end',
   alignItems: 'center',
+  marginLeft: 'auto',
   [theme.breakpoints.down('sm')]: {
     maxWidth: '85vw',
   },

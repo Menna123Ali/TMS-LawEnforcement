@@ -1,5 +1,4 @@
 export const drawerWidth = 300
-export const appBarHeight = '13vh'
 export const inactivityTimeout = 10 * 60 * 1000 // 60 sec 1000 mill
 
 const rootServerURI = window.location.origin

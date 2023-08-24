@@ -12,23 +12,14 @@ export const login = ({ payload, onSuccess, onError = () => {}, onComplete = () 
     .then(function (response) {
       onSuccess(response)
     })
-    .catch((error) => {
-      var msg = 'Server Request Failed'
-      if (error.response != null) {
-        if (error.response.status === 401) {
-          msg = 'Session ended or unautherized access'
-        } else {
-          msg = error.response.data.message
-        }
-      }
-
-      onError(msg)
+    .catch((e) => {
+      onError(e)
     })
     .finally(() => {
       onComplete()
     })
 }
-export const checkToken = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+export const getUserPages = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
   securityAxios(
     {
       method: 'POST',
@@ -40,16 +31,7 @@ export const checkToken = async ({ payload, onSuccess, onError = () => {}, onCom
       onSuccess(response)
     })
     .catch((error) => {
-      var msg = 'Server Request Failed'
-      if (error.response != null) {
-        if (error.response.status === 401) {
-          msg = 'Session ended or unautherized access'
-        } else {
-          msg = error.response.data.message
-        }
-      }
-
-      onError(msg)
+      onError(error)
     })
     .finally(() => {
       onComplete()

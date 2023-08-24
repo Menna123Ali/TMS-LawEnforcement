@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { theme } from './assets/styles/theme'
 import { ThemeProvider } from '@mui/material'
 import Routes from './utils/routes'
@@ -10,8 +10,8 @@ import FlashMessagePortal from './components/common/AppFlashMessage/FlashMessage
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <InactivityTimer />
       <Provider store={store}>
+        <InactivityTimer />
         <Routes />
         <FlashMessagePortal autoClose={true} autoCloseTime={5000} />
       </Provider>

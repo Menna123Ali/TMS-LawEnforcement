@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom'
 import AppFlashMessage from './AppFlashMessage'
 
 import { Snackbar } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { shallowEqual, useSelector } from 'react-redux'
 import UseFlashMessage from '../../../utils/hooks/UseFlashMessage'
 
 const FlashMessagePortal = ({ autoClose = false, autoCloseTime = 5000 }) => {
   const { removeFlashMessage } = UseFlashMessage()
-  const state = useSelector((state) => state.app)
+  const state = useSelector((state) => {
+    const { flashMessages } = state.app
+    return { flashMessages }
+  }, shallowEqual)
 
   return ReactDOM.createPortal(
     <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={true}>

@@ -1,6 +1,5 @@
-import { AppBar, Hidden, IconButton, Toolbar } from '@mui/material'
+import { AppBar, Hidden, Toolbar } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { drawerWidth } from '../../../../utils/constants/config'
 import StyledUserMenu from '../UserMenu/UserMenu.styles'
 import { MenuButton, UserMenuContainer } from './AppBarMain.styles'
 

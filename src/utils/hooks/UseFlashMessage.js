@@ -21,7 +21,7 @@ const UseFlashMessage = () => {
       appUpdate([
         {
           prop: 'flashMessages',
-          value: (flashMessages) => flashMessages.filter((t) => t.id != id),
+          value: (flashMessages) => flashMessages.filter((t) => t.id !== id),
         },
       ])
     )

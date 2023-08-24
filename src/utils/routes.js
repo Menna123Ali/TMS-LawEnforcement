@@ -1,13 +1,15 @@
 import React from 'react'
-import { Navigate, useRoutes } from 'react-router-dom'
+import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import DefaultLayout from '../layouts/DefaultLayout/DefaultLayout.styles'
 import ProtectedRoute from '../components/common/ProtectedRoute/ProtectedRoute'
-import Login from '../pages/Login/Login.styles'
-import Logout from '../pages/Logout/Logout'
+import Login from '../pages/login/Login.styles'
+import Logout from '../pages/logout/Logout'
 import Page404 from '../pages/Page404/Page404.styles'
+import PrivateRoute from '../components/common/PrivateRoute/PrivateRoute'
 
 const PayInvoice = React.lazy(() => import('../pages/invoice/PayInvoice/PayInvoice'))
 const CreateInvoice = React.lazy(() => import('../pages/invoice/CreateInvoice/CreateInvoice.styles'))
+const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard.styles'))
 
 const Routes = () => {
   return useRoutes([
@@ -20,13 +22,48 @@ const Routes = () => {
       ),
       children: [
         {
+          path: '/',
+          exact: true,
+          element: <Navigate to="/dashboard" />,
+        },
+        {
+          path: '/dashboard',
+          element: <Dashboard />,
+        },
+        {
           path: 'invoices-billing',
-          element: '',
+          element: <Outlet />,
+
           children: [
-            { path: 'create-invoice', element: <CreateInvoice /> },
-            { path: 'pay-invoice', element: <PayInvoice /> },
+            {
+              path: 'on-road-invoice',
+              element: (
+                <PrivateRoute>
+                  <CreateInvoice />
+                </PrivateRoute>
+              ),
+              exact: true,
+            },
+            {
+              path: 'on-pay-invoice',
+              element: (
+                <PrivateRoute>
+                  <PayInvoice />
+                </PrivateRoute>
+              ),
+              exact: true,
+            },
           ],
         },
+        // {
+        //   path: '/driving-license/new-driving-license/:type',
+        //   element: (
+        //     <PrivateRoute>
+        //       <CreateInvoice />
+        //     </PrivateRoute>
+        //   ),
+        //   exact: true,
+        // },
       ],
     },
 

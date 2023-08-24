@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Icon, styled } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Icon, List, styled } from '@mui/material'
 import DrawerContent from './DrawerContent'
 
 const StyledDrawerContent = styled(DrawerContent)(({ theme }) => ({ border: 'none', width: '100%', height: '100%', overflow: 'scroll', overflowX: 'hidden', overflowY: 'auto' }))
@@ -132,5 +132,53 @@ export const AccordionDetailsRoot = styled(AccordionDetails)(({ theme }) => ({
   display: 'block',
   padding: 0,
   background: `rgb(53 89 132)`,
+}))
+export const ListRoot = styled(List)(({ theme }) => ({
+  padding: 0,
+  '& >.listItem': {
+    borderRadius: '0',
+    minHeight: '40px',
+    color: '#cecfde',
+    paddingLeft: '30px',
+    paddingRight: '0',
+    '& >.itemIcon': {
+      minWidth: '15px',
+      textAlign: 'center',
+      margin: '0 8px 0 0',
+      '& >.navLinkIcon': { fontSize: '18px', color: '#b0b2ca' },
+    },
+    '& >.listItemTextRoot': {
+      '& .MuiTypography-root': {
+        fontSize: '15px',
+        lineHeight: '16px',
+      },
+    },
+    '&.item': {
+      padding: '8px 16px',
+    },
+    '&:hover': {
+      background: 'rgba(0,0,0,0.1)',
+      color: '#fff',
+      '& .material-icons': {
+        color: '#cecfde',
+      },
+    },
+    '& .MuiTypography-root': {
+      fontWeight: 'bold',
+    },
+    '&.active': {
+      backgroundColor: 'rgba(0,0,0,0.1)',
+      color: '#fff',
+
+      '& .material-icons': {
+        color: theme.palette.secondary.main,
+      },
+      '&:hover': {
+        '& .material-icons': {
+          color: theme.palette.secondary.main,
+        },
+      },
+    },
+  },
 }))
 export default StyledDrawerContent

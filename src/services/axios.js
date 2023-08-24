@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { LOCAL_STORAGE_CONSTANT, currentEnvURL } from '../utils/constants/config'
+import store from '../store/store'
+import { appSlice } from '../store/AppSlice'
 
 export const securityAxios = axios.create({
   baseURL: currentEnvURL.authApi,
@@ -53,6 +55,7 @@ export const printerAxios = axios.create({
     },
   },
 })
+
 const requestHandler = async (request) => {
   const authToken = await localStorage.getItem(LOCAL_STORAGE_CONSTANT.TOKEN)
 
@@ -73,11 +76,27 @@ const responseHandler = (response) => {
   return response
 }
 const exceptionHandler = (error) => {
+  const { merge: appMerge } = appSlice.actions
+
   if (error.response.status === 401) {
     localStorage.clear()
 
     window.location.href = '/'
   }
+  let msg = 'Server Request Failed'
+  if (!!error.response && !!error.response.data && !!error.response.data.message) {
+    msg = error.response.data.message
+  }
+  console.log(store)
+  store.dispatch(
+    appMerge([
+      {
+        prop: 'flashMessages',
+        value: [{ type: 'error', message: msg, id: (Date.now() + '-' + Math.random()).toString(16).replace(/\./g, ''), start_time: Date.now() }],
+      },
+    ])
+  )
+
   return Promise.reject(error)
 }
 // NotificationAxios REQUEST HANDLER

@@ -4,7 +4,7 @@ import { LOCAL_STORAGE_CONSTANT } from '../../../utils/constants/config'
 const ProtectedRoute = ({ children }) => {
   let token = localStorage.getItem(LOCAL_STORAGE_CONSTANT.TOKEN)
 
-  return token ? children : <Navigate to="/login" />
+  return token ? children : <Navigate to="/login" replace />
 }
 
 export default ProtectedRoute

@@ -46,7 +46,6 @@ const Logic = () => {
           isSubmitting: false,
           errorMessage: e,
         })
-        addFlashMessage({ type: 'error', message: e })
       },
     })
   }

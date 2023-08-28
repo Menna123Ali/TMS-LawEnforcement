@@ -8,7 +8,7 @@ export const Main = styled('main')(({ theme, openPersistentDrawer }) => ({
   minHeight: '100vh',
   width: 'fit-content',
   overflow: 'auto',
-  paddingTop: '60px',
+  paddingTop: 'var(--header-height, 60px)',
   background: theme.palette.pageBackground.main,
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,

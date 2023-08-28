@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Card, CardContent, CardActionArea, Modal, Backdrop, Fade, Skeleton } from '@mui/material'
+import {StyledModal} from './ImgViewer.styles'
 
 const ImgViewer = ({ imagePreviewUrl, className }) => {
   const [open, setOpen] = useState(false)
@@ -20,22 +21,19 @@ const ImgViewer = ({ imagePreviewUrl, className }) => {
             <CardContent className={'cardContent'}>{imagePreviewUrl ? <img className={'img'} src={imagePreviewUrl} alt="..." /> : <Skeleton className={'skeleton'} variant="rect" />}</CardContent>
           </CardActionArea>
         </Card>
-        <Modal
+        <StyledModal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           className={'modal'}
           open={open}
           onClose={handleClose}
           closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
         >
           <Fade in={open}>
             <div className={'paper'}>{imagePreviewUrl ? <img className={'imgXL'} src={imagePreviewUrl} alt="..." /> : <Skeleton className={'skeleton'} variant="rect" />}</div>
           </Fade>
-        </Modal>
+        </StyledModal>
+        <Backdrop open={open} timeout={500} onClick={handleClose} />
       </>
     </div>
   )

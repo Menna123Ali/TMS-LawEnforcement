@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import AppLayoutHeader from './AppLayoutHeader.styles'
+import AppLayoutHeader from '../AppLayoutHeader/AppLayoutHeader.styles'
 
 const AppLayoutPage = ({ className, title, content }) => {
   // useEffect(() => {

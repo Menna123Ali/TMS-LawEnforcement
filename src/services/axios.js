@@ -11,7 +11,9 @@ export const securityAxios = axios.create({
     },
   },
 })
-
+// const handleCancelRequest = () => {
+//   cancelTokenSource.cancel('Request was canceled')
+// }
 export const FrontAxios = axios.create({
   baseURL: currentEnvURL.FrontURL,
   headers: {
@@ -69,7 +71,6 @@ const requestHandler = async (request) => {
     ...headers,
   }
 
-  console.log(request)
   return request
 }
 const responseHandler = (response) => {
@@ -87,7 +88,7 @@ const exceptionHandler = (error) => {
   if (!!error.response && !!error.response.data && !!error.response.data.message) {
     msg = error.response.data.message
   }
-  console.log(store)
+
   store.dispatch(
     appMerge([
       {
@@ -140,3 +141,37 @@ ReportAxios.interceptors.response.use(
   (response) => responseHandler(response),
   (error) => exceptionHandler(error)
 )
+
+// handle cancel token
+const CancelToken = axios.CancelToken
+
+export function createCancelTokenHandler(apiObject) {
+  // initializing the cancel token handler object
+  const cancelTokenHandler = {}
+
+  // for each property in apiObject, i.e. for each request
+  apiObject.forEach((propertyName) => {
+    // initializing the cancel token of the request
+    const cancelTokenRequestHandler = {
+      cancelToken: undefined,
+    }
+    console.log(propertyName)
+    // associating the cancel token handler to the request name
+    cancelTokenHandler[propertyName] = {
+      handleRequestCancellation: () => {
+        // if a previous cancel token exists,
+        // cancel the request
+
+        cancelTokenRequestHandler.cancelToken && cancelTokenRequestHandler.cancelToken.cancel(`${propertyName} canceled`)
+
+        // creating a new cancel token
+        cancelTokenRequestHandler.cancelToken = CancelToken.source()
+
+        // returning the new cancel token
+        return cancelTokenRequestHandler.cancelToken
+      },
+    }
+  })
+
+  return cancelTokenHandler
+}

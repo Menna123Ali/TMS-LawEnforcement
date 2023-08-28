@@ -14,10 +14,3 @@ export const appSlice = generateSlice({
     CACHE_DATA: null,
   },
 })
-
-export const count = generateSlice({
-  name: 'count',
-  initialState: {
-    test: null,
-  },
-})

@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { appSlice, count } from './AppSlice'
+import { appSlice } from './AppSlice'
+import { createInvoiceSlice } from '../pages/invoice/CreateInvoice/CreateInvoiceSlice'
 
 const reducer = combineReducers({
   [appSlice.name]: appSlice.reducer,
-  [count.name]: count.reducer,
+  [createInvoiceSlice.name]: createInvoiceSlice.reducer,
 })
 
 export default configureStore({

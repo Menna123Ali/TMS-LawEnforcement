@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import dotPropImmutable from 'dot-prop-immutable'
 
-export const generateSlice = ({ name, initialState, reducers, extraReducers }) => {
+export const generateSlice = ({ name, initialState, reducers }) => {
   initialState = {
     ...initialState,
   }
@@ -41,10 +41,6 @@ export const generateSlice = ({ name, initialState, reducers, extraReducers }) =
 
       // Then pass through any other reducers specific to this slice only.
       ...reducers,
-    },
-    extraReducers: {
-      // extraReducers are global reducers that apply to all slices.// We'll come back to these later.
-      ...extraReducers,
     },
   })
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import AppLayoutHeader from '../AppLayoutHeader/AppLayoutHeader.styles'
 
-const AppLayoutPage = ({ className, title, content }) => {
+const AppLayoutPage = ({ className, title, children }) => {
   // useEffect(() => {
   //   const GetCopyRight = async () => {
   //     await FrontAxios({
@@ -38,7 +38,7 @@ const AppLayoutPage = ({ className, title, content }) => {
     <div className={className}>
       {title && <AppLayoutHeader title={title} />}
 
-      <Box>{content && <div className={'content'}>{content}</div>}</Box>
+      <Box>{children && <div className={'content'}>{children}</div>}</Box>
 
       {/* <div className={'copyright'}>{appState.CurrentAppVersion}</div> */}
       <div className={'copyright'}>'Copyright © 2022-2023 DITECH Kano, Limited. All Rights Reserved.</div>

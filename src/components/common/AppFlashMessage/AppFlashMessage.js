@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 
 export default function AppFlashMessage({ flashMessage, autoClose, autoCloseTime, onClose }) {
   useEffect(() => {
-    // if (autoClose) {
-    const timer = setTimeout(() => {
-      onClose()
-    }, autoCloseTime)
+    if (autoClose) {
+      const timer = setTimeout(() => {
+        onClose()
+      }, autoCloseTime)
 
-    return () => clearTimeout(timer)
-    // }
+      return () => clearTimeout(timer)
+    }
   }, [])
   // Types : error / warning / info / success
   return (

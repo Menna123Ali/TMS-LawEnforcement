@@ -1,14 +1,13 @@
-import { securityAxios } from './axios'
+import { securityAxios, createCancelTokenHandler } from './axios'
 
+// creating the cancel token handler object
+const cancelTokenHandlerObject = createCancelTokenHandler(['getUserPages'])
 export const login = ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
-  securityAxios({
-    method: 'POST',
-    url: '/api/Auth/Login',
-    data: {
+  securityAxios
+    .post('/api/Auth/Login', {
       username: payload.username,
       password: payload.password,
-    },
-  })
+    })
     .then(function (response) {
       onSuccess(response)
     })
@@ -19,14 +18,12 @@ export const login = ({ payload, onSuccess, onError = () => {}, onComplete = () 
       onComplete()
     })
 }
+
 export const getUserPages = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
-  securityAxios(
-    {
-      method: 'POST',
-      url: '/api/UserManager/GetUserPages',
-    }
-    // { cancelToken: ourRequest.token }
-  )
+  securityAxios
+    .post('/api/UserManager/GetUserPages', payload, {
+      cancelToken: cancelTokenHandlerObject['getUserPages'].handleRequestCancellation().token,
+    })
     .then(function (response) {
       onSuccess(response)
     })

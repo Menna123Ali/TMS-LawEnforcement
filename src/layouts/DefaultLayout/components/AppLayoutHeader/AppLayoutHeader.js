@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 // import { THEME_CONTATANS } from '../styles/constants'
-import AppBreadcrumbs from './components/AppBreadcrumbs.styles'
+import AppBreadcrumbs from '../AppBreadcrumbs/AppBreadcrumbs.styles'
 // import { AppContext } from '../App'
 
 const AppLayoutHeader = ({ className, title }) => {

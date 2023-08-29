@@ -8,7 +8,6 @@ import FileUpload from './components/common/FileUpload/FileUpload'
 import { Field, Form, Formik } from 'formik'
 import FormikAutocomplete from './components/common/FormikAutocomplete/FormikAutocomplete'
 import StyledButton from './components/common/AppButton/AppButton.styles'
-import InactivityTimer from './components/InactivityComponent'
 function App() {
   const [FileType, setFileType] = useState('')
   const [file, setFile] = useState(null)
@@ -391,13 +390,12 @@ function App() {
   ]
   return (
     <>
-      <InactivityTimer />
       <ThemeProvider theme={theme}>
         <Formik initialValues={{ attachReceipt: '', cardType: '' }} onSubmit={(values) => console.log(values)}>
           {({ errors, touched, setFieldValue, values, resetForm, dirty }) => (
             <Form>
               <Grid item lg={3} md={4} sm={6} xs={12}>
-                {/* <Field name="attachReceipt" component={FileUpload} title="Attach Receipt" setFileType={setFileType} setFile={setFile} setFieldValue={setFieldValue} helpertext={touched.attachReceipt && errors.attachReceipt} errorMessage={errors.attachReceipt ? errors.attachReceipt : undefined} /> */}
+                <Field name="attachReceipt" component={FileUpload} title="Attach Receipt" setFileType={setFileType} setFile={setFile} setFieldValue={setFieldValue} helpertext={touched.attachReceipt && errors.attachReceipt} errorMessage={errors.attachReceipt ? errors.attachReceipt : undefined} />
                 <Field
                   disabled={false}
                   name="cardType"

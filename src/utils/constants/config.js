@@ -1,6 +1,12 @@
 export const drawerWidth = 300
 export const inactivityTimeout = 10 * 60 * 1000 // 60 sec 1000 mill
-
+export const supportedFilesFormat = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png', 'application/pdf']
+export const maxFilesSizes = {
+  attachReceipt: 500 * 1000,
+  tin: { photo: 500 * 1000, signature: 500 * 1000, attach: 500 * 1000 },
+  dl: { photo: 500 * 1000, signature: 500 * 1000, attach: 500 * 1000 },
+  vr: 500 * 1000 /*size in Bytes*/,
+}
 const rootServerURI = window.location.origin
 const FrontURL = {
   Dev: 'http://localhost:53812/',

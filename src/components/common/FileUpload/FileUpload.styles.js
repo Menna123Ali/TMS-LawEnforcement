@@ -1,15 +1,10 @@
-import { styled } from '@mui/material'
+import { Avatar, styled } from '@mui/material'
 import { alpha } from '@mui/material/styles'
 import FileUpload from './FileUpload'
 
 const StyledFileUpload = styled(FileUpload)(({ theme }) => ({
   textAlign: 'center',
-  '&  .bigAvatar': {
-    margin: '0 10px 0 0',
-    width: 35,
-    height: 35,
-    border: `2px solid ${theme.palette.primary.main}`,
-  },
+
   '&  .hidden': {
     display: 'none',
   },
@@ -40,17 +35,39 @@ const StyledFileUpload = styled(FileUpload)(({ theme }) => ({
     width: 'auto',
     height: '200px',
   },
-  '& .primaryBack': {
-    background: theme.palette.primary.main,
-  },
+
   '& .whiteBack': {
     background: 'white',
     borderColor: theme.palette.success.main,
   },
-  '& .errorBack': {
+
+  '& >.cameraView': {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    '& >.captureButton': {
+      position: 'absolute',
+      bottom: 30,
+      left: '50%',
+      width: 50,
+      transform: 'translateX(-50%)',
+      height: 50,
+      borderRadius: '50%',
+      background: '#FFF',
+    },
+  },
+}))
+
+export const StyledAvatar = styled(Avatar)(({ theme, errormessage }) => ({
+  margin: '0 10px 0 0',
+  width: 35,
+  height: 35,
+  border: `2px solid ${theme.palette.primary.main}`,
+  background: theme.palette.primary.main,
+  ...(errormessage && {
     background: alpha(theme.palette.error.main, 0.5),
     borderColor: 'red',
-  },
+  }),
 }))
 
 export default StyledFileUpload

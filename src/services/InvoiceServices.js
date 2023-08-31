@@ -48,3 +48,17 @@ export const calculateInvoiceFees = async ({ payload, onSuccess, onError = () =>
       onComplete()
     })
 }
+
+export const onPayInvoice = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  cacheAxiosApi
+    .post('/api/Invoice/SearchAllInvoice', payload)
+    .then(function (response) {
+      onSuccess(response)
+    })
+    .catch((error) => {
+      onError(error)
+    })
+    .finally(() => {
+      onComplete()
+    })
+}

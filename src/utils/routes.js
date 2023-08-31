@@ -7,8 +7,8 @@ import Logout from '../pages/Logout/Logout'
 import Page404 from '../pages/Page404/Page404.styles'
 import PrivateRoute from '../components/common/PrivateRoute/PrivateRoute'
 
-const PayInvoice = React.lazy(() => import('../pages/invoice/PayInvoice/PayInvoice'))
-const OnRoadInvoice = React.lazy(() => import('../pages/invoice/OnRoadInvoice/index'))
+const PayInvoice = React.lazy(() => import('../pages/invoice/PayInvoice'))
+const OnRoadInvoice = React.lazy(() => import('../pages/invoice/OnRoadInvoice'))
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard.styles'))
 
 const Routes = () => {

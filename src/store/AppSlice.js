@@ -11,6 +11,7 @@ export const appSlice = generateSlice({
     userData: JSON.parse(localStorage.getItem(LOCAL_STORAGE_CONSTANT.USERDATA)),
     modulePages: [],
     flashMessages: [],
-    CACHE_DATA: null,
+    cacheData: [],
+    copyRight: null,
   },
 })

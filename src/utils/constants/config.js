@@ -22,7 +22,7 @@ const FrontURL = {
 }
 
 const tmsAPIURL = {
-  DevLocal: 'http://localhost:55497/',
+  DevLocal: 'http://192.168.1.12:55497/',
   DevLawEnforcement: 'http://192.168.1.200:55497/',
   Dev: 'http://192.168.1.200/tmsapi/',
   Dev4400: 'http://192.168.1.200:4400/TMSAPI/',
@@ -37,7 +37,7 @@ const tmsAPIURL = {
   DubaiDev: 'http://86.98.4.21:81/TMSDevApi/',
 }
 const securityAPIURL = {
-  DevLocal: 'http://localhost:55500/',
+  DevLocal: 'http://192.168.1.12:55500/',
   DevLawEnforcement: 'http://192.168.1.200:55500/',
   Dev: 'http://192.168.1.200/TMSAuth/',
   Dev4400: 'http://192.168.1.200:4400/TMSAuth/',
@@ -52,14 +52,14 @@ const securityAPIURL = {
   DubaiDev: 'http://86.98.4.21:81/TMSDevAuth/',
 }
 const NotificationIURL = {
-  DevLocal: 'http://localhost:60703/',
+  DevLocal: 'http://192.168.1.12:60703/',
   Dev: 'http://localhost:60703/',
   DubaiNigDemo: 'http://86.98.4.21:105/TMSNotification/',
   DubaiNigDemoDynamic: rootServerURI + '/TMSNotification/',
   DubaiDev: 'http://86.98.4.21:81/TMSDevNotification/',
 }
 const reportAPIURL = {
-  DevLocal: 'https://localhost:44376/',
+  DevLocal: 'https://192.168.1.12:44376/',
   Dev: 'http://192.168.1.200/TMSReport/',
   ProdUat: 'http://ltm-appuat/tmsreport/',
   DubaiArchana: 'http://192.168.0.202/TMSReport/',
@@ -72,7 +72,7 @@ const reportAPIURL = {
   DubaiDev: 'http://86.98.4.21:81/TMSDevReport/',
 }
 const printServerAPIURL = {
-  DevLocal: 'http://localhost:2303/',
+  DevLocal: 'http://192.168.1.12:2303/',
   Dev: 'http://192.168.1.200/TMSprint/',
   ProdUat: 'http://ltm-appuat/tmsprintmanager/',
   DubaiArchana: 'http://192.168.0.202/TMSPrint/',
@@ -84,7 +84,6 @@ const printServerAPIURL = {
   DubaiUatDynamic: rootServerURI + '/TMSUatPrint/',
   DubaiDev: 'http://86.98.4.21:81/TMSDevPrint/',
 }
-
 export const currentEnvURL = {
   tmsApi: tmsAPIURL.Dev,
   authApi: securityAPIURL.Dev,

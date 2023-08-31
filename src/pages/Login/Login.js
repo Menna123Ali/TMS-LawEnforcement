@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Hidden, TextField, Typography } from '@mui/material'
-import { initialState, validationSchema } from './constant'
+import { initialState, validationSchema } from './constants'
 import { Field, Form, Formik } from 'formik'
 import Logo from '../../assets/images/logo-full.png'
 import AppButton from '../../components/common/AppButton/AppButton.styles'

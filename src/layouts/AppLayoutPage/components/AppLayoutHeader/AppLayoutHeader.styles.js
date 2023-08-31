@@ -9,6 +9,8 @@ const StyledAppLayout = styled(AppLayoutHeader)(({ theme }) => ({
     color: '#fff',
     margin: '0',
     fontSize: '22px',
+    textTransform: 'capitalize',
   },
+  '& .pageIcon': { color: theme.palette.secondary.main, position: 'absolute', right: '20px', fontSize: '50px' },
 }))
 export default StyledAppLayout

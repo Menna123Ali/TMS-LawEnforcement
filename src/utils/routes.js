@@ -6,10 +6,9 @@ import Login from '../pages/Login/Login.styles'
 import Logout from '../pages/Logout/Logout'
 import Page404 from '../pages/Page404/Page404.styles'
 import PrivateRoute from '../components/common/PrivateRoute/PrivateRoute'
-import AppLayoutPage from '../layouts/DefaultLayout/components/AppLayoutPage/AppLayoutPage.styles'
 
 const PayInvoice = React.lazy(() => import('../pages/invoice/PayInvoice/PayInvoice'))
-const CreateInvoice = React.lazy(() => import('../pages/invoice/CreateInvoice/CreateInvoice.styles'))
+const OnRoadInvoice = React.lazy(() => import('../pages/invoice/OnRoadInvoice/index'))
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard.styles'))
 
 const Routes = () => {
@@ -40,9 +39,7 @@ const Routes = () => {
               path: 'on-road-invoice',
               element: (
                 <PrivateRoute>
-                  <AppLayoutPage>
-                    <CreateInvoice />
-                  </AppLayoutPage>
+                  <OnRoadInvoice />
                 </PrivateRoute>
               ),
               exact: true,
@@ -51,9 +48,7 @@ const Routes = () => {
               path: 'on-pay-invoice',
               element: (
                 <PrivateRoute>
-                  <AppLayoutPage title='pay invoice'>
-                    <PayInvoice />
-                  </AppLayoutPage>
+                  <PayInvoice />
                 </PrivateRoute>
               ),
               exact: true,

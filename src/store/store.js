@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { appSlice } from './AppSlice'
-import { createInvoiceSlice } from '../pages/invoice/CreateInvoice/CreateInvoiceSlice'
+import { onRoadInvoiceSlice } from '../pages/invoice/OnRoadInvoice/OnRoadInvoiceSlice'
 
 const reducer = combineReducers({
   [appSlice.name]: appSlice.reducer,
-  [createInvoiceSlice.name]: createInvoiceSlice.reducer,
+  [onRoadInvoiceSlice.name]: onRoadInvoiceSlice.reducer,
 })
 
 export default configureStore({

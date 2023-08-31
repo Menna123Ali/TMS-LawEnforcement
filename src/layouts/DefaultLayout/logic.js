@@ -3,7 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import UseFlashMessage from '../../utils/hooks/UseFlashMessage'
 import { appSlice } from '../../store/AppSlice'
 import { getUserPages } from '../../services/UserServices'
-import { getAllLookupTables } from '../../services/CommonServices'
+import { getAllLookupTables, getCurrentAppVersion } from '../../services/CommonServices'
 
 const Logic = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false)
@@ -45,8 +45,17 @@ const Logic = () => {
   async function callCacheData() {
     getAllLookupTables({
       onSuccess: (response) => {
-        dispatch(appUpdate([{ prop: 'CACHE_DATA', value: response.data.model }]))
+        dispatch(appUpdate([{ prop: 'cacheData', value: response.data.model }]))
         localStorage.setItem('CACHE_DATA', JSON.stringify(response.data.model))
+      },
+    })
+  }
+
+  const GetCopyRight = async () => {
+    getCurrentAppVersion({
+      onSuccess: (response) => {
+        console.log(response)
+        dispatch(appUpdate([{ prop: 'copyRight', value: response.data.copyright }]))
       },
     })
   }
@@ -55,6 +64,7 @@ const Logic = () => {
     if (state.isAuthenticated) {
       handleGetUserPages()
       callCacheData()
+      GetCopyRight()
     }
   }, [state.isAuthenticated])
 

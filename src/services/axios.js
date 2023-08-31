@@ -11,9 +11,7 @@ export const securityAxios = axios.create({
     },
   },
 })
-// const handleCancelRequest = () => {
-//   cancelTokenSource.cancel('Request was canceled')
-// }
+
 export const FrontAxios = axios.create({
   baseURL: currentEnvURL.FrontURL,
   headers: {
@@ -85,8 +83,12 @@ const exceptionHandler = (error) => {
     window.location.href = '/'
   }
   let msg = 'Server Request Failed'
-  if (!!error.response && !!error.response.data && !!error.response.data.message) {
-    msg = error.response.data.message
+
+  if (!!error.response && !!error.response.data) {
+    msg = error.response.data
+    if (!!error.response.data.message) {
+      msg = error.response.data.message
+    }
   }
 
   store.dispatch(
@@ -130,6 +132,15 @@ FrontAxios.interceptors.request.use((request) => requestHandler(request))
 
 // FrontAxios RESPONSE HANDLER
 FrontAxios.interceptors.response.use(
+  (response) => responseHandler(response),
+  (error) => exceptionHandler(error)
+)
+
+// cacheAxiosApi REQUEST HANDLER
+cacheAxiosApi.interceptors.request.use((request) => requestHandler(request))
+
+// cacheAxiosApi RESPONSE HANDLER
+cacheAxiosApi.interceptors.response.use(
   (response) => responseHandler(response),
   (error) => exceptionHandler(error)
 )

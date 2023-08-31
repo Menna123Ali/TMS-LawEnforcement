@@ -12,12 +12,12 @@ export const validateSchema = Yup.object().shape({
   // .test('serviceReapet', 'this service type has been choosen before', (val) => selectedServices.filter((ele) => ele.serviceType.nServiceId == val?.nServiceId).length == 0 || val?.bCabBeDuplicatedForAnInvoice)
   category: Yup.object().required('This field is required'),
   subType: Yup.object().required('This field is required'),
-  plateNumber: Yup.mixed()
+  plateNumber: Yup.string()
     .when('serviceType', {
       is: (val) => val?.bIsPlateNumberrequired,
       then: (schema) => schema.required('This field is required'),
-      // .matches(/^[^-\s][a-zA-Z0-9_\s-]+$/, 'This field cannot accept special character'),
     })
+    .matches(/^[^-\s][a-zA-Z0-9_\s-]+$/, 'This field cannot accept special character')
     .nullable(),
   vin: Yup.mixed()
     .when('serviceType', {

@@ -12,29 +12,28 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {columns.map((headCell) => (
-          <TableCell key={headCell.id} align={headCell.numeric ? 'right' : 'left'} padding={headCell.disablePadding ? 'none' : 'normal'} sortDirection={orderBy === headCell.id ? order : false}>
-            <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : 'asc'} onClick={createSortHandler(headCell.id)}>
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+        {columns.map((headCell, index) => (
+          <TableCell key={index} align={headCell.align} sortDirection={orderBy === headCell.id ? order : false}>
+            {headCell.sortable ? (
+              <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : 'asc'} onClick={createSortHandler(headCell.id)}>
+                {headCell.label}
+              </TableSortLabel>
+            ) : (
+              headCell.label
+            )}
           </TableCell>
         ))}
       </TableRow>
     </TableHead>
   )
 }
-const AppTable = ({ className, columns, orderBy, order = 'asc', handleRequestSort }) => {
+const AppTable = ({ className, columns, orderBy, order = 'asc', handleRequestSort, size = 'medium' }) => {
   const [page, setPage] = React.useState(0)
   const [dense, setDense] = React.useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
   function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein }
+    return { name, calories, fat, carbs, user: { protein } }
   }
 
   const rows = [createData('Frozen yoghurt', 159, 6.0, 24, 4.0), createData('Ice cream sandwich', 237, 9.0, 37, 4.3), createData('Eclair', 262, 16.0, 24, 6.0), createData('Cupcake', 305, 3.7, 67, 4.3), createData('Gingerbread', 356, 16.0, 49, 3.9)]
@@ -65,56 +64,50 @@ const AppTable = ({ className, columns, orderBy, order = 'asc', handleRequestSor
   }
   const headCells = [
     {
-      id: 'name',
-      numeric: false,
-      disablePadding: true,
-      label: 'Dessert (100g serving)',
-    },
-    {
       id: 'calories',
-      numeric: true,
-      disablePadding: false,
       label: 'Calories',
+      sortable: true,
+      align: 'right',
+      renderColumn: 'calories',
     },
     {
       id: 'fat',
-      numeric: true,
-      disablePadding: false,
       label: 'Fat (g)',
+      sortable: true,
+      align: 'right',
+      renderColumn: 'fat',
     },
     {
       id: 'carbs',
-      numeric: true,
-      disablePadding: false,
       label: 'Carbs (g)',
+      align: 'right',
+      renderColumn: 'carbs',
     },
     {
       id: 'protein',
-      numeric: true,
-      disablePadding: false,
       label: 'Protein (g)',
+      align: 'right',
+      renderColumn: 'user.protein',
     },
   ]
   const visibleRows = React.useMemo(() => stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage), [order, orderBy, page, rowsPerPage])
+  const getRoute = (o, r) => r.split('.').reduce((c, s) => c[s], o)
+
   return (
     <>
       <TableContainer>
-        <Table className={className} aria-labelledby="tableTitle" size={'medium'} aria-label="enhanced table">
+        <Table className={className} aria-labelledby="tableTitle" size={size} aria-label="enhanced table">
           <EnhancedTableHead columns={headCells} order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
 
           <TableBody>
             {visibleRows.map((row, index) => {
-              const labelId = `enhanced-table-checkbox-${index}`
-
               return (
-                <TableRow hover tabIndex={-1} key={row.name} sx={{ cursor: 'pointer' }}>
-                  <TableCell component="th" id={labelId} scope="row" padding="none">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
+                <TableRow tabIndex={-1} key={index}>
+                  {headCells.map((headCell, index) => (
+                    <TableCell align={headCell.align} key={index}>
+                      {row[headCell.renderColumn]}
+                    </TableCell>
+                  ))}
                 </TableRow>
               )
             })}

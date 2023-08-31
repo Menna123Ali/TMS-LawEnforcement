@@ -4,7 +4,7 @@ import AppTable from './AppTable'
 export const StyledAppTable = styled(AppTable)(({ theme }) => ({
   overflow: 'hidden',
 
-  '& > .MuiTableHead-root': {
+  '& .MuiTableHead-root': {
     background: theme.palette.primary.main,
 
     '& th': {

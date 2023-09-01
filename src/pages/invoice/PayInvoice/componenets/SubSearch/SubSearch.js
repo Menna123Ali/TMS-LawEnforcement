@@ -1,18 +1,17 @@
-import { Box, CircularProgress, Grid, TextField } from '@mui/material'
-import { Field, Form, Formik } from 'formik'
+import { Box, Grid, TextField } from '@mui/material'
+import { Form, Formik } from 'formik'
 import { initialState, validateSchema } from '../../constants'
-import { useRef } from 'react'
 import AppField from '../../../../../components/common/AppField/AppField.styles'
 import Logic from './logic'
-import AppButton from '../../../../../components/common/AppButton/AppButton'
+import AppButton from '../../../../../components/common/AppButton/AppButton.styles'
 
 const SubSearch = ({ className }) => {
-  const { formRef, isAddLoading, onSubmitHandler } = Logic()
-
+  const { isAddLoading, onSubmitHandler } = Logic()
+  
   return (
     <div className={className}>
-      <Formik enableReinitialize={false} innerRef={formRef} validationSchema={validateSchema} initialValues={initialState} onSubmit={onSubmitHandler}>
-        {({ touched, errors, resetForm, setFieldValue, values, validateForm, submitForm }) => {
+      <Formik validationSchema={validateSchema} initialValues={initialState} onSubmit={onSubmitHandler}>
+        {({ touched, errors, setFieldValue, values }) => {
           return (
             <Form>
               <div className="searchContainer">

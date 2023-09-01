@@ -5,6 +5,7 @@ const StyledAppLayout = styled(AppLayoutPage)(({ theme }) => ({
   minHeight: '100%',
   display: 'flex',
   flexDirection: 'column',
+
   '& .content': {
     // padding: theme.spacing(3),
     position: 'relative',

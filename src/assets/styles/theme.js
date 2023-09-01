@@ -18,5 +18,8 @@ export const theme = createTheme({
     lightgrey: {
       main: palette.lightgrey,
     },
+    grey: {
+      main: palette.grey,
+    },
   },
 })

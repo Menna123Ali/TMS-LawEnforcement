@@ -38,8 +38,8 @@ const Logic = (rows, perPage, colOrderDirection, colOrder) => {
 
     return stabilizedThis.map((el) => el[0])
   }
-  const tableRows = orderBy ? stableSort(rows, getComparator(order, orderBy)) : rows
-  const visibleRows = tableRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  // const tableRows = orderBy ? stableSort(rows, getComparator(order, orderBy)) : rows
+  const visibleRows = stableSort(rows, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
 

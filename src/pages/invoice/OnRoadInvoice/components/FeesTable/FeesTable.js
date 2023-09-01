@@ -1,27 +1,28 @@
 import React from 'react'
 import AppTable from '../../../../../components/common/AppTable/AppTable.styles'
-import { columns } from '../../constants'
 import { shallowEqual, useSelector } from 'react-redux'
-import { Accordion } from '@mui/material'
+import { Paper } from '@mui/material'
+import Logic from './logic'
+import CollapsiblePanel from '../../../../../components/common/CollapsiblePanel/CollapsiblePanel.styles'
 
-const FeesTable = () => {
+const FeesTable = ({ className }) => {
+  const { columns } = Logic()
   const state = useSelector((state) => {
     const { feesData } = state.onRoadInvoice
     return { feesData }
   }, shallowEqual)
+  const [expanded, setExpanded] = React.useState(true)
 
   return (
-    <>
-      {state.feesData && <AppTable rows={state.feesData} columns={columns} />}
-      {/* <div className="searchAccordion">
-        <Accordion expanded={expanded}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header" onClick={expandedChange} className="_accordionSummary">
-            <Typography className={classes.heading}>{header}</Typography>
-          </AccordionSummary>
-          <AccordionDetails className={classes.accordionDetails}>{state.feesData && <AppTable rows={state.feesData} columns={columns} order={ordert} orderBy={orderByt} handleRequestSort={handleRequestSort} />}</AccordionDetails>
-        </Accordion>
-      </div> */}
-    </>
+    <div className={className}>
+      {state.feesData && (
+        <CollapsiblePanel expanded={expanded} onClick={() => setExpanded((expand) => !expand)} title="Search Result">
+          <Paper className="tableContainer">
+            <AppTable rows={state.feesData} columns={columns} />
+          </Paper>
+        </CollapsiblePanel>
+      )}
+    </div>
   )
 }
 

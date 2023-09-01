@@ -1,4 +1,5 @@
 import * as Yup from 'yup'
+import Delete from '@mui/icons-material/Delete'
 export const initialState = {
   serviceType: null,
   category: null,
@@ -26,10 +27,19 @@ export const validateSchema = Yup.object().shape({
     })
     .nullable(),
 })
-export const columns = [
+export const columns = (actions) => [
   { id: 'snameWithotCode', label: 'Service', align: 'center', renderColumn: 'service.snameWithotCode' },
   { id: 'VehicleType', label: 'Vehicle Type', align: 'center', renderColumn: 'subType.sSubTypeNameEn' },
   { id: 'RegisterationType', label: 'Registeration Type', align: 'center', renderColumn: 'subType.sSubTypeCategoryNameEn' },
   { id: 'price', label: 'Fees', align: 'center', renderColumn: 'price' },
-  { id: 'Delete', label: 'Delete', align: 'center', renderColumn: (row) => <div>{row.price}</div> },
+  {
+    id: 'Delete',
+    label: 'Delete',
+    align: 'center',
+    renderColumn: (row) => (
+      <div onClick={() => actions.deleteSelectedServices(row.service.nServiceId)}>
+        <Delete />
+      </div>
+    ),
+  },
 ]

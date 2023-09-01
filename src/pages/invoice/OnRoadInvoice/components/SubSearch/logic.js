@@ -1,19 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import { calculateInvoiceFees, getAllService, getCategoriesWithSubTypes } from '../../../../../services/InvoiceServices'
 import UseFlashMessage from '../../../../../utils/hooks/UseFlashMessage'
-import { useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { onRoadInvoiceSlice } from '../../OnRoadInvoiceSlice'
 
 const Logic = () => {
   const [applicationMainTypeOptions, setApplicationMainTypeOptions] = useState([])
   const [categoryOptions, setCategoryOptions] = useState([])
   const [applicationSubTypeOptions, setApplicationSubTypeOptions] = useState([])
-  const [selectedServices, setSelectedServices] = useState([])
+  // const [selectedServices, setSelectedServices] = useState([])
   const [isAddLoading, setIsAddLoading] = useState(false)
   const formRef = useRef()
   const { addFlashMessage } = UseFlashMessage()
   const dispatch = useDispatch()
   const { update } = onRoadInvoiceSlice.actions
+  const state = useSelector((state) => {
+    const { selectedServices } = state.onRoadInvoice
+    return { selectedServices }
+  }, shallowEqual)
   // Load categories
   const handleChangeApplicationType = (value) => {
     // setIsSub(true)
@@ -50,11 +54,10 @@ const Logic = () => {
     // resetForm()
     // setFormValues(values)
     // setInvoiceData(null)
-    console.log(values)
-    console.log(selectedServices)
+
     debugger
     if (formRef.current) formRef.current.validateForm()
-    let tempArray = [...selectedServices]
+    let tempArray = [...state.selectedServices]
     // if (isInvoiceCreated) {
     //   tempArray = []
     //   setFeesData([])
@@ -103,7 +106,7 @@ const Logic = () => {
           addFlashMessage({ type: 'warning', message: message })
         }
 
-        setSelectedServices(_selectedServices)
+        // setSelectedServices(_selectedServices)
 
         // setExpanded(true)
 
@@ -112,6 +115,10 @@ const Logic = () => {
             {
               prop: 'feesData',
               value: res.data.model.invoiceServiceList,
+            },
+            {
+              prop: 'selectedServices',
+              value: _selectedServices,
             },
           ])
         )

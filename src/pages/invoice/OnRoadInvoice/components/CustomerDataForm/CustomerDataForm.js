@@ -24,7 +24,7 @@ const CustomerDataForm = ({ className }) => {
                   </div>
                   <Grid container justify="flex-start" flex={1} spacing={2}>
                     <Grid item sm={4} xs={12}>
-                      <AppField as={TextField} disabled={isInvoiceCreated} name="SCustomerName" className="required" label="Customer Name" variant="outlined" fullWidth error={touched.SCustomerName && !!errors.SCustomerName} helperText={touched.SCustomerName && errors.SCustomerName} />
+                      <AppField disabled={isInvoiceCreated} name="SCustomerName" className="required" label="Customer Name" variant="outlined" fullWidth error={touched.SCustomerName && !!errors.SCustomerName} helperText={touched.SCustomerName && errors.SCustomerName} />
                     </Grid>
                     <Grid item sm={4} xs={12}>
                       <AppField as={AppPhoneMask} disabled={isInvoiceCreated} setFieldValue={setFieldValue} className="required" label="Customer Phone" name="SCustomerPhone" variant="outlined" fullWidth error={touched.SCustomerPhone && !!errors.SCustomerPhone} helperText={touched.SCustomerPhone && errors.SCustomerPhone} autoComplete="off" />
@@ -39,7 +39,7 @@ const CustomerDataForm = ({ className }) => {
                             </AppButton>
                           </div>
                           <div>
-                            <AppButton onClick={onReset} variant="outlined" color="error" type="button" minWidth="auto" fullWidth style={{ margin: '0 0 0 5px' }}>
+                            <AppButton onClick={onReset} variant="outlined" color="error" type="button" fullWidth style={{ margin: '0 0 0 5px', minWidth: 'auto' }}>
                               Reset
                             </AppButton>
                           </div>

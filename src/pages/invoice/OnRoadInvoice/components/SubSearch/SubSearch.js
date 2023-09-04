@@ -61,7 +61,6 @@ const SubSearch = ({ className }) => {
                     {values.serviceType?.bIsPlateNumberVisible && (
                       <Grid item sm={4} xs={12}>
                         <AppField
-                          as={TextField}
                           onChange={(e) => {
                             setFieldValue('plateNumber', e.target.value)
                             // setPlatenumber(e.target.value)

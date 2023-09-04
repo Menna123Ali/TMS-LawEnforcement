@@ -35,24 +35,25 @@ const Logic = () => {
     })
     const vin = state.selectedServices.findLast((element) => element.vin != '')?.vin
     let payload = {}
-    if (values) {
-      payload = {
-        nVehicle: {
-          nVehicleTypeId: values.nVehicleTypeId.nVehicleTypeId,
-          nBodyStyleId: values.nBodyStyleId.nBodyStyleId,
-          nFuelTypeId: values.nFuelTypeId.nFuelTypeId,
-          nVehicleMakerId: values.nVehicleMakerId.nVehicleMakerId,
-          nVehicleModelId: values.nVehicleModelId.nVehicleModelId,
-          nVehicleColorId: values.nVehicleColorId.nVehicleColorId,
-          nNumberOfSeats: parseInt(values.nNumberOfSeats),
-          nManufacturerCountryId: values.nManufacturerCountryId.nManufacturerCountryId,
-          nEngineCapacity: parseInt(values.nEngineCapacity),
-          fWeight: parseFloat(values.fWeight),
-          IsVinDataOverrided: values.IsVinDataOverrided,
-          sChassisNumber: vin,
-        },
-      }
-    }
+    // if (values) {
+    //   payload = {
+    //     nVehicle: {
+    //       nVehicleTypeId: values.nVehicleTypeId.nVehicleTypeId,
+    //       nBodyStyleId: values.nBodyStyleId.nBodyStyleId,
+    //       nFuelTypeId: values.nFuelTypeId.nFuelTypeId,
+    //       nVehicleMakerId: values.nVehicleMakerId.nVehicleMakerId,
+    //       nVehicleModelId: values.nVehicleModelId.nVehicleModelId,
+    //       nVehicleColorId: values.nVehicleColorId.nVehicleColorId,
+    //       nNumberOfSeats: parseInt(values.nNumberOfSeats),
+    //       nManufacturerCountryId: values.nManufacturerCountryId.nManufacturerCountryId,
+    //       nEngineCapacity: parseInt(values.nEngineCapacity),
+    //       fWeight: parseFloat(values.fWeight),
+    //       IsVinDataOverrided: values.IsVinDataOverrided,
+    //       sChassisNumber: vin,
+    //     },
+    //   }
+    // }
+    console.log(values)
     addInvoice({
       payload: {
         // STIN: Tin,
@@ -84,7 +85,7 @@ const Logic = () => {
           )
 
           setIsInvoiceCreated(true)
-          onReset()
+
           // ResetForm()
           window.scrollTo(0, document.body.scrollHeight)
         } else {
@@ -99,48 +100,6 @@ const Logic = () => {
         setIsCreateInvoiceLoading(false)
       },
     })
-
-    //   .then((res) => {
-    // if (res.data.success) {
-    //   setInvoiceInfo({
-    //     sApplicationNumber: res.data.model.sHigherPrioriryApplicationNumber,
-    //     sInvoiceNumber: res.data.model.sInvoiceNumber,
-    //     dtInvoiceDate: res.data.model.dtCreationDate,
-    //     invoiceTotalPrice: res.data.model.fPrice,
-    //     nInvoiceId: res.data.model.nInvoiceId,
-    //     sVin: res.data.model.sVin,
-    //     sPlateNumber: res.data.model.sPlateNumber,
-    //   })
-    //   setExpanded(true)
-    //   setIsInvoiceCreated(true)
-    //   ResetForm()
-    //   window.scrollTo(0, document.body.scrollHeight)
-    // } else {
-    //   var msg = 'Server Request Failed'
-    //   if (res?.data?.message != null) {
-    //     msg = res?.data?.message
-    //   }
-    //   appDispatch({ type: 'FLASHMESSAGE', flashMessage: msg, flashMessageType: 'error' })
-    // }
-    //   })
-    //   .catch((e) => {
-    //     console.log('create invoice', e)
-    //     var msg = 'Server Request Failed'
-    //     if (e.response?.data?.message != null) {
-    //       msg = e.response?.data?.message
-    //     } else if (e.response?.data != null) {
-    //       if (typeof e.response?.data == 'object') {
-    //         msg = 'Saving Failed'
-    //       } else {
-    //         msg = e.response?.data
-    //       }
-    //     }
-    //     console.log(typeof msg)
-    //     appDispatch({ type: 'FLASHMESSAGE', flashMessage: msg, flashMessageType: 'error' })
-    //   })
-    //   .finally(() => {
-    //     setIsCreateInvoiceLoading(false)
-    //   })
   }
   const onReset = () => {
     dispatch(reset())

@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import AppField from '../../../../../components/common/AppField/AppField.styles'
 import FormikAutocomplete from '../../../../../components/common/FormikAutocomplete/FormikAutocomplete'
 import Logic from './logic'
-import AppButton from '../../../../../components/common/AppButton/AppButton'
+import AppButton from '../../../../../components/common/AppButton/AppButton.styles'
 import SearchIcon from '@mui/icons-material/Search'
 
 const SubSearch = ({ className }) => {

@@ -1,7 +1,7 @@
 import { TablePagination, styled } from '@mui/material'
 import AppTable from './AppTable'
 
-export const StyledAppTable = styled(AppTable)(({ theme }) => ({
+const StyledAppTable = styled(AppTable)(({ theme }) => ({
   overflow: 'hidden',
 
   '& .MuiTableHead-root': {

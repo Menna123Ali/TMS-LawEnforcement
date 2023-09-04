@@ -43,3 +43,15 @@ export const columns = (actions) => [
     ),
   },
 ]
+export const customerFormData = {
+  SCustomerName: '',
+  SCustomerPhone: '',
+  Paymethod: '',
+}
+export const customerFormDataSchema = Yup.object().shape({
+  SCustomerName: Yup.string().required('This field is required').nullable(),
+  // Paymethod: Yup.string().required('This field is required').nullable(),
+  SCustomerPhone: Yup.string()
+    .matches(/^[+]\d{9,15}$/, 'Phone must be between 9 and 15 number with +')
+    .required('This field is required'),
+})

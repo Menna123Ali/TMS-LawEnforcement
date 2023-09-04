@@ -1,5 +1,5 @@
 import { styled } from '@mui/material'
-import CreateInvoice from './CreateInvoice'
+import OnRoadInvoice from './OnRoadInvoice'
 
-const StyledCreateInvoice = styled(CreateInvoice)(({ theme }) => ({}))
+const StyledCreateInvoice = styled(OnRoadInvoice)(({ theme }) => ({}))
 export default StyledCreateInvoice

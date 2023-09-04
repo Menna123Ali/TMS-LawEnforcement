@@ -62,3 +62,16 @@ export const onPayInvoice = async ({ payload, onSuccess, onError = () => {}, onC
       onComplete()
     })
 }
+export const addInvoice = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  cacheAxiosApi
+    .post('/api/Invoice/AddInvoice', payload)
+    .then(function (response) {
+      onSuccess(response)
+    })
+    .catch((error) => {
+      onError(error)
+    })
+    .finally(() => {
+      onComplete()
+    })
+}

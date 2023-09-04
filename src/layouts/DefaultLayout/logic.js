@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import UseFlashMessage from '../../utils/hooks/UseFlashMessage'
 import { appSlice } from '../../store/AppSlice'
@@ -21,12 +21,12 @@ const Logic = () => {
     setopenPersistentDrawer(true)
   }
 
-  function handlePersistentDrawerClose() {
+  const handlePersistentDrawerClose = useCallback(() => {
     setopenPersistentDrawer(false)
-  }
-  function handleDrawerToggle() {
+  }, [])
+  const handleDrawerToggle = useCallback(() => {
     setMobileOpen((prevState) => !prevState)
-  }
+  }, [])
   async function handleGetUserPages() {
     try {
       getUserPages({

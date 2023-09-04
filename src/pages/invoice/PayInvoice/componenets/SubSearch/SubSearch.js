@@ -1,5 +1,5 @@
 import { Box, Grid, TextField } from '@mui/material'
-import { Form, Formik } from 'formik'
+import { Form, Formik, Field } from 'formik'
 import { initialState, validateSchema } from '../../constants'
 import AppField from '../../../../../components/common/AppField/AppField.styles'
 import Logic from './logic'
@@ -11,18 +11,15 @@ const SubSearch = ({ className }) => {
   return (
     <div className={className}>
       <Formik validationSchema={validateSchema} initialValues={initialState} onSubmit={onSubmitHandler}>
-        {({ touched, errors, setFieldValue, values }) => {
+        {({ touched, errors }) => {
           return (
             <Form>
               <div className="searchContainer">
                 <div className="_grid">
                   <Grid container justify="flex-start" flex={1} spacing={2}>
                       <Grid item sm={4} xs={12}>
-                        <AppField
+                        <Field
                           as={TextField}
-                          onChange={(e) => {
-                            setFieldValue('invoiceNumber', e.target.value)
-                          }}
                           name="invoiceNumber"
                           label="Invoice Number"
                           variant="outlined"
@@ -32,11 +29,8 @@ const SubSearch = ({ className }) => {
                         />
                       </Grid>
                       <Grid item sm={4} xs={12}>
-                        <AppField
+                        <Field
                           as={TextField}
-                          onChange={(e) => {
-                            setFieldValue('customerName', e.target.value)
-                          }}
                           name="customerName"
                           label="Customer Name"
                           variant="outlined"
@@ -46,11 +40,8 @@ const SubSearch = ({ className }) => {
                         />
                       </Grid>
                       <Grid item sm={4} xs={12}>
-                        <AppField
+                        <Field
                           as={TextField}
-                          onChange={(e) => {
-                            setFieldValue('customerPhone', e.target.value)
-                          }}
                           name="customerPhone"
                           label="Customer Phone"
                           variant="outlined"

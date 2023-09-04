@@ -1,3 +1,4 @@
+import PaymentIcon from '@mui/icons-material/Payment'
 import * as Yup from 'yup'
 
 export const initialState = {
@@ -12,16 +13,15 @@ const without = (array, ...values) => {
 
 Yup.addMethod(Yup.object, 'atLeastOneRequired', function atLeastOneRequired(list, message) {
   return this.shape(
-    list.reduce(
-      (acc, field) => ({
+    list.reduce((acc, field) => {
+      return {
         ...acc,
         [field]: this.fields[field].when(without(list, field), {
           is: (...values) => !values.some((item) => item),
-          then: this.fields[field].required(message),
+          then: () => this.fields[field].required(message),
         }),
-      }),
-      {}
-    ),
+      }
+    }, {}),
     list.reduce((acc, item, idx, all) => [...acc, ...all.slice(idx + 1).map((i) => [item, i])], [])
   )
 })
@@ -34,9 +34,18 @@ export const validateSchema = Yup.object()
   })
   .atLeastOneRequired(['invoiceNumber', 'customerName', 'customerPhone'], 'At least one field is required')
 
-export const columns = [
-  { id: 'sInvoiceNumber', label: 'Invoice Number', align: 'left' },
-  { id: 'dtCreationDate', label: 'Invoice Date', align: 'left' },
-  { id: 'invoiceTotalPrice', label: 'Total', align: 'center' },
-  { id: 'actions', label: '', align: 'center' },
+export const columns = (actions) => [
+  { id: 'sInvoiceNumber', label: 'Invoice Number', align: 'left', renderColumn: 'sInvoiceNumber' },
+  { id: 'dtCreationDate', label: 'Invoice Date', align: 'left', renderColumn: 'dtCreationDate' },
+  { id: 'invoiceTotalPrice', label: 'Total', align: 'center', renderColumn: 'invoiceTotalPrice' },
+  {
+    id: 'pay',
+    label: 'Pay',
+    align: 'center',
+    renderColumn: (row) => (
+      <div onClick={() => actions.payInvoice(row)}>
+        <PaymentIcon />
+      </div>
+    ),
+  },
 ]

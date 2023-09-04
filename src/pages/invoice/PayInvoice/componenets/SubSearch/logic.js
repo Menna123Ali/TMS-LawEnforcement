@@ -10,30 +10,35 @@ const Logic = () => {
   const { addFlashMessage } = UseFlashMessage()
   const dispatch = useDispatch()
   const { update } = payInvoiceSlice.actions
-  // Load categories
+ 
+  const onSubmitHandler = (values, {resetForm}) => {
+    console.log(values)
+    debugger
+    resetForm()
 
-  const onSubmitHandler = (values) => {
-    setIsAddLoading(true)
-    onPayInvoice({
-      payload: {
-        sInvoiceNumber: values.invoiceNumber?.trim(),
-        sCustomerName: values.customerName?.trim(),
-        sCustomerPhone: values.customerPhone?.trim(),
-        nInvoiceStatusId: 1,
-      },
-      onSuccess: (res) => {
-        if (res.data.length === 0) {
-          addFlashMessage({ type: 'warning', message: 'No results found Or Invoice Already Paid' })
-        }
-        if (formRef.current) formRef.current.resetForm()
-      },
+//     setIsAddLoading(true)
+//     onPayInvoice({
+//       payload: {
+//         sInvoiceNumber: values.invoiceNumber?.trim(),
+//         sCustomerName: values.customerName?.trim(),
+//         sCustomerPhone: values.customerPhone?.trim(),
+//         nInvoiceStatusId: 1,
+//       },
+//       onSuccess: (res) => {
+//         if (res.data.length === 0) {
+//           addFlashMessage({ type: 'warning', message: 'No results found Or Invoice Already Paid' })
+//         }
+// debugger
+//         resetForm()
+//       },
 
-      onComplete: () => {
-        setIsAddLoading(false)
-      },
-    })
+//       onComplete: () => {
+//         setIsAddLoading(false)
+//       },
+//     })
   }
 
   return { formRef, isAddLoading, onSubmitHandler }
 }
+
 export default Logic

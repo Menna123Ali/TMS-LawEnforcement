@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button } from '@mui/material'
 
-const AppButton = ({ children, color = 'primary', type = 'submit', className, ...props }) => {
+const AppButton = ({ children, variant = 'contained', color = 'primary', type = 'button', className, size = 'large', ...props }) => {
   return (
-    <Button className={className} type={type} variant="contained" color={color} {...props}>
+    <Button className={className} type={type} variant={variant} color={color} size={size} {...props}>
       {children}
     </Button>
   )

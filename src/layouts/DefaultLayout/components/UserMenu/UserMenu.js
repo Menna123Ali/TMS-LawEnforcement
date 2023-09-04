@@ -5139,6 +5139,7 @@ const UserMenu = ({ className }) => {
       ],
     },
   ]
+
   const userMenuClick = (event) => {
     setUserMenu(event.currentTarget)
   }
@@ -5171,6 +5172,7 @@ const UserMenu = ({ className }) => {
     //   console.log('Error in notfications')
     // }
   }
+  
   const userMenuClose = () => {
     // appDispatch({ type: "LOGOUT" })
     // appDispatch({ type: "FLASHMESSAGE", flashMessage: "You've been logged out", flashMessageType: "success" })
@@ -5180,41 +5182,13 @@ const UserMenu = ({ className }) => {
 
   const handleLogout = () => {
     userMenuClose()
-    // props.history.push('/logout')
+    window.location.href = '/logout'
   }
 
   const clickAwayHandler = () => setIsOpen(false)
 
   return (
     <div className={className}>
-      <div className="favMenu">
-        {Object.entries({
-          '1091_Page': true,
-          '42_Page': true,
-        }).map((itemsSelected) => {
-          console.log(itemsSelected)
-          if (itemsSelected[1]) {
-            return (
-              <React.Fragment key={itemsSelected[0]}>
-                {modules.map((item) => {
-                  {
-                    return item.pages.map((child) => {
-                      if (child.pageId + '_Page' === itemsSelected[0]) {
-                        return (
-                          <Button key={child.pageId} size="small" component={Link} to={child.pageUrl} color="primary" className="favBTN" startIcon={<Icon>{child.pageIcon.iconName}</Icon>}>
-                            {child.pageName}
-                          </Button>
-                        )
-                      }
-                    })
-                  }
-                })}
-              </React.Fragment>
-            )
-          }
-        })}
-      </div>
-
       <UserMenuContainer>
         {/* {props.TimeoutCountdown && props.TimeoutCountdown < 10 ? <div className="counterItem">{props.TimeoutCountdown && <div>Session Ends In {props.TimeoutCountdown} s</div>}</div> : ''} */}
         <Button className="min-h-40" onClick={userMenuClick}>
@@ -5234,7 +5208,7 @@ const UserMenu = ({ className }) => {
             }}
           ></Badge>
 
-          <Button className="min-h-40" onClick={handleNotification}>
+          <Button className="min-h-40 notification-btn" onClick={handleNotification}>
             <Avatar className="avatar">
               <NotificationsIcon />
             </Avatar>
@@ -5284,6 +5258,37 @@ const UserMenu = ({ className }) => {
         {<NotificationPopper {...{ clickAwayHandler, isOpen, setopencounter, counter, anchorEl, setAnchorEl }} />}
         {/* {<SendNotification />} */}
       </UserMenuContainer>
+      <div className="cards-container">
+        <div className="cards">
+          {Object.entries({
+            '1091_Page': true,
+            '42_Page': true,
+            '41_Page': true,
+          }).map((itemsSelected) => {
+            if (itemsSelected[1]) {
+              return (
+                <React.Fragment key={itemsSelected[0]}>
+                  <div className="card">
+                    {modules.map((item) =>
+                      item.pages.map((child) => {
+                        if (child.pageId + '_Page' === itemsSelected[0]) {
+                          return (
+                            <Button key={child.pageId} size="small" component={Link} to={child.pageUrl} color="primary" className="favBTN" startIcon={<Icon>{child.pageIcon.iconName}</Icon>}>
+                              <span className="card-txt">{child.pageName}</span>
+                            </Button>
+                          )
+                        }
+                        return null
+                      })
+                    )}
+                  </div>
+                </React.Fragment>
+              )
+            }
+            return null
+          })}
+        </div>
+      </div>
     </div>
   )
 }

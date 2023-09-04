@@ -1,60 +1,34 @@
-import { securityAxios } from './axios'
+import { securityAxios, createCancelTokenHandler } from './axios'
 
-export const login = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
-  try {
-    await securityAxios({
-      method: 'POST',
-      url: '/api/Auth/Login',
-      data: {
-        username: payload.username,
-        password: payload.password,
-      },
+// creating the cancel token handler object
+const cancelTokenHandlerObject = createCancelTokenHandler(['getUserPages'])
+export const login = ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  securityAxios
+    .post('/api/Auth/Login', {
+      username: payload.username,
+      password: payload.password,
     })
-      .then(function (response) {
-        onSuccess(response)
-      })
-      .catch((error) => {
-        var msg = 'Server Request Failed'
-        if (error.response != null) {
-          if (error.response.status === 401) {
-            msg = 'Session ended or unautherized access'
-          } else {
-            msg = error.response.data.message
-          }
-        }
-        alert('errrrss')
-        onError(msg)
-      })
-      .finally(() => {
-        onComplete()
-      })
-  } catch (e) {
-    console.log(e.response) // undefined
-    alert('err')
-  }
+    .then(function (response) {
+      onSuccess(response)
+    })
+    .catch((e) => {
+      onError(e)
+    })
+    .finally(() => {
+      onComplete()
+    })
 }
-export const checkToken = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
-  securityAxios(
-    {
-      method: 'POST',
-      url: '/api/UserManager/GetUserPages',
-    }
-    // { cancelToken: ourRequest.token }
-  )
+
+export const getUserPages = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  securityAxios
+    .post('/api/UserManager/GetUserPages', payload, {
+      cancelToken: cancelTokenHandlerObject['getUserPages'].handleRequestCancellation().token,
+    })
     .then(function (response) {
       onSuccess(response)
     })
     .catch((error) => {
-      var msg = 'Server Request Failed'
-      if (error.response != null) {
-        if (error.response.status === 401) {
-          msg = 'Session ended or unautherized access'
-        } else {
-          msg = error.response.data.message
-        }
-      }
-
-      onError(msg)
+      onError(error)
     })
     .finally(() => {
       onComplete()

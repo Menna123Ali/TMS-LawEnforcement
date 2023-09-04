@@ -1,90 +1,73 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import UseFlashMessage from '../../utils/hooks/UseFlashMessage'
+import { appSlice } from '../../store/AppSlice'
+import { getUserPages } from '../../services/UserServices'
+import { getAllLookupTables, getCurrentAppVersion } from '../../services/CommonServices'
 
 const Logic = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [openPersistentDrawer, setopenPersistentDrawer] = React.useState(true)
 
+  const { addFlashMessage } = UseFlashMessage()
+  const { update: appUpdate } = appSlice.actions
+  const dispatch = useDispatch()
+  const state = useSelector((state) => {
+    const { isAuthenticated } = state.app
+    return { isAuthenticated }
+  }, shallowEqual)
+
   function handlePersistentDrawerOpen() {
     setopenPersistentDrawer(true)
   }
 
-  function handlePersistentDrawerClose() {
+  const handlePersistentDrawerClose = useCallback(() => {
     setopenPersistentDrawer(false)
-  }
-  function handleDrawerToggle() {
+  }, [])
+  const handleDrawerToggle = useCallback(() => {
     setMobileOpen((prevState) => !prevState)
+  }, [])
+  async function handleGetUserPages() {
+    try {
+      getUserPages({
+        onSuccess: (response) => {
+          if (!response.data) {
+            addFlashMessage({ type: 'warning', message: 'No Menu to render' })
+          } else {
+            dispatch(appUpdate([{ prop: 'modulePages', value: response.data }]))
+          }
+        },
+      })
+    } catch (e) {
+      addFlashMessage({ type: 'error', message: 'There was a problem or the request was cancelled.' })
+    }
   }
-  //   useEffect(() => {
-  //     async function checkToken() {
-  //       try {
-  //         checkToken({
-  //           onSuccess: (response) => {
-  //             console.log(response)
-  //             localStorage.setItem(LOCAL_STORAGE_CONSTANT.USERNAME, response.data.userData.name)
-  //             localStorage.setItem(LOCAL_STORAGE_CONSTANT.TOKEN, response.data.token.result)
-  //             localStorage.setItem(LOCAL_STORAGE_CONSTANT.AVATAR, 'avatar')
-  //             localStorage.setItem(LOCAL_STORAGE_CONSTANT.USERDATA, JSON.stringify(response.data.userData))
-  //             dispatch(
-  //               appUpdate([
-  //                 { prop: 'isAuthenticated', value: true },
-  //                 { prop: 'username', value: response.data.userData.name },
-  //                 { prop: 'token', value: response.data.token.result },
-  //                 { prop: 'userData', value: response.data.userData },
-  //                 { prop: 'avatar', value: 'avatar' },
-  //               ])
-  //             )
-  //             navigate('/')
-  //             // appDispatch({ type: 'FLASHMESSAGE', flashMessage: 'Welcome ' + response.data.userData.name, flashMessageType: 'success' })
-  //           },
-  //         })
-  //         const response = await securityAxios(
-  //           {
-  //             method: 'POST',
-  //             url: '/api/UserManager/GetUserPages',
-  //           },
-  //           { cancelToken: ourRequest.token }
-  //         )
+  async function callCacheData() {
+    getAllLookupTables({
+      onSuccess: (response) => {
+        dispatch(appUpdate([{ prop: 'cacheData', value: response.data.model }]))
+        localStorage.setItem('CACHE_DATA', JSON.stringify(response.data.model))
+      },
+    })
+  }
 
-  //         if (!response.data) {
-  //           appDispatch({
-  //             type: 'FLASHMESSAGE',
-  //             flashMessage: 'No Mmenu to render',
-  //             flashMessageType: 'warning',
-  //           })
-  //         } else {
-  //           appDispatch({
-  //             type: 'MENU',
-  //             payload: response.data,
-  //           })
-  //           // debugger
-  //           const favMenu = response.data
-  //             .map((item) => item.pages.map((child) => child.pageId + '_Page'))
-  //             .flat()
-  //             .reduce((a, v) => ({ ...a, [v]: true }), {})
+  const GetCopyRight = async () => {
+    getCurrentAppVersion({
+      onSuccess: (response) => {
+        console.log(response)
+        dispatch(appUpdate([{ prop: 'copyRight', value: response.data.copyright }]))
+      },
+    })
+  }
 
-  //           appDispatch({
-  //             type: 'FAVMENU',
-  //             favMenuSelected: JSON.stringify(favMenu),
-  //           })
-  //           async function callCacheData() {
-  //             const response = await cacheAxiosApi({
-  //               method: 'GET',
-  //               url: '/api/LookUpData/GetAllLookupTables',
-  //             })
-  //             appDispatch({ type: 'CACHE_DATA', payload: response.data.model })
-  //             localStorage.setItem('CACHE_DATA', JSON.stringify(response.data.model))
-  //           }
-  //           callCacheData()
-  //         }
-  //       } catch (e) {
-  //         appDispatch({
-  //           type: 'FLASHMESSAGE',
-  //           flashMessage: 'There was a problem or the request was cancelled.',
-  //           flashMessageType: 'error',
-  //         })
-  //       }
-  //     }
-  //   }, [])
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      handleGetUserPages()
+      callCacheData()
+      GetCopyRight()
+    }
+  }, [state.isAuthenticated])
+
   return { mobileOpen, openPersistentDrawer, handlePersistentDrawerOpen, handlePersistentDrawerClose, handleDrawerToggle }
 }
 

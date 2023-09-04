@@ -2,10 +2,13 @@ $primary: rgb(21, 68, 122);
 $orange: rgb(247, 144, 30);
 $pageBackground: #eef4ff;
 $textMuted: #b0b2ca;
-
+$lightGrey: #d5d5d5;
+$grey: rgba(0, 0, 0, 0.38);
 :export {
   primary: $primary;
   orange: $orange;
-  pageBackground: $pageBackground;
+  pagebackground: $pageBackground;
   textMuted: $textMuted;
+  lightgrey: $lightGrey;
+  grey: $grey;
 }

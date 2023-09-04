@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+import dotPropImmutable from 'dot-prop-immutable'
 
-export const generateSlice = ({ name, initialState, reducers, extraReducers }) => {
+export const generateSlice = ({ name, initialState, reducers }) => {
   initialState = {
     ...initialState,
   }
@@ -11,21 +12,35 @@ export const generateSlice = ({ name, initialState, reducers, extraReducers }) =
       // Our reusable reducers will go here...
       reset: () => ({ ...initialState }),
       update: (state, action) => {
+        let newState = state
+
         action.payload.forEach((element) => {
-          if (typeof element.value === 'function') {
-            state[element.prop] = element.value(state[element.prop])
-          } else {
-            state[element.prop] = element.value
-          }
+          newState = dotPropImmutable.set(newState, element.prop, element.value)
         })
+
+        return newState
+      },
+      merge: (state, action) => {
+        let newState = state
+
+        action.payload.forEach((element) => {
+          newState = dotPropImmutable.merge(newState, element.prop, element.value)
+        })
+
+        return newState
+      },
+      delete: (state, action) => {
+        let newState = state
+
+        action.payload.forEach((element) => {
+          newState = dotPropImmutable.delete(newState, element.prop)
+        })
+
+        return newState
       },
 
       // Then pass through any other reducers specific to this slice only.
       ...reducers,
-    },
-    extraReducers: {
-      // extraReducers are global reducers that apply to all slices.// We'll come back to these later.
-      ...extraReducers,
     },
   })
 }

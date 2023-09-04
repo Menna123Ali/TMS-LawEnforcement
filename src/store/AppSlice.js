@@ -10,5 +10,8 @@ export const appSlice = generateSlice({
     avatar: localStorage.getItem(LOCAL_STORAGE_CONSTANT.AVATAR),
     userData: JSON.parse(localStorage.getItem(LOCAL_STORAGE_CONSTANT.USERDATA)),
     modulePages: [],
+    flashMessages: [],
+    cacheData: [],
+    copyRight: null,
   },
 })

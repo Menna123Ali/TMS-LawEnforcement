@@ -15,5 +15,11 @@ export const theme = createTheme({
     textMuted: {
       main: palette.textMuted,
     },
+    lightgrey: {
+      main: palette.lightgrey,
+    },
+    grey: {
+      main: palette.grey,
+    },
   },
 })

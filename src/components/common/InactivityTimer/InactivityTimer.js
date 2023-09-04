@@ -1,11 +1,14 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { inactivityTimeout } from '../../../utils/constants/config'
+import { useNavigate } from 'react-router-dom'
 
 const InactivityTimer = () => {
   const inactivityTimerRef = useRef()
+  const navigate = useNavigate()
   const channelRef = useRef(new BroadcastChannel('inactivity-channel'))
 
   const onInactivity = useCallback(() => {
+    // navigate('/logout')
     window.location.href = '/logout'
   }, [])
 

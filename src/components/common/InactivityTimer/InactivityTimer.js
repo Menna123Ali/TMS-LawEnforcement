@@ -8,7 +8,8 @@ const InactivityTimer = () => {
   const channelRef = useRef(new BroadcastChannel('inactivity-channel'))
 
   const onInactivity = useCallback(() => {
-    navigate('/logout')
+    // navigate('/logout')
+    window.location.href = '/logout'
   }, [])
 
   useEffect(() => {

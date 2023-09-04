@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { calculateInvoiceFees, getAllService, getCategoriesWithSubTypes } from '../../../../../services/InvoiceServices'
 import UseFlashMessage from '../../../../../utils/hooks/UseFlashMessage'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -50,25 +50,28 @@ const Logic = () => {
     // }
   }
 
-  const onAddServiceSubmit = (values) => {
-    // resetForm()
-    // setFormValues(values)
-    // setInvoiceData(null)
+  const onAddServiceSubmit = useCallback(
+    (values) => {
+      // resetForm()
+      // setFormValues(values)
+      // setInvoiceData(null)
 
-    debugger
-    if (formRef.current) formRef.current.validateForm()
-    let tempArray = [...state.selectedServices]
-    // if (isInvoiceCreated) {
-    //   tempArray = []
-    //   setFeesData([])
-    //   setInvoiceInfo(null)
-    //   setIsInvoiceCreated(false)
-    // }
-    tempArray.push(values)
-    console.log(tempArray)
+      debugger
+      if (formRef.current) formRef.current.validateForm()
+      let tempArray = [...state.selectedServices]
+      // if (isInvoiceCreated) {
+      //   tempArray = []
+      //   setFeesData([])
+      //   setInvoiceInfo(null)
+      //   setIsInvoiceCreated(false)
+      // }
+      tempArray.push(values)
+      console.log(tempArray)
 
-    calculateFees(tempArray)
-  }
+      calculateFees(tempArray)
+    },
+    [state.selectedServices]
+  )
 
   function calculateFees(_selectedServices) {
     setIsAddLoading(true)

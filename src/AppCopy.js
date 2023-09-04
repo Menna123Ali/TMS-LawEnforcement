@@ -421,9 +421,7 @@ function App() {
         {/* <Test /> */}
         {/* <FileUpload setFileType={setFileType} setFile={setFile} setFieldValue={setFieldValue} /> */}
       </Grid>
-      <Box>
-        <AdvancedTable/>
-      </Box>
+     
       </ThemeProvider>
     </>
   )

@@ -13,10 +13,10 @@ const Logic = () => {
   const formRef = useRef()
   const { addFlashMessage } = UseFlashMessage()
   const dispatch = useDispatch()
-  const { update } = onRoadInvoiceSlice.actions
+  const { update, reset } = onRoadInvoiceSlice.actions
   const state = useSelector((state) => {
-    const { selectedServices } = state.onRoadInvoice
-    return { selectedServices }
+    const { selectedServices, invoiceInfo } = state.onRoadInvoice
+    return { selectedServices, invoiceInfo }
   }, shallowEqual)
   // Load categories
   const handleChangeApplicationType = (value) => {
@@ -50,28 +50,26 @@ const Logic = () => {
     // }
   }
 
-  const onAddServiceSubmit = useCallback(
-    (values) => {
-      // resetForm()
-      // setFormValues(values)
-      // setInvoiceData(null)
+  const onAddServiceSubmit = (values) => {
+    // resetForm()
+    // setFormValues(values)
+    // setInvoiceData(null)
 
-      debugger
-      if (formRef.current) formRef.current.validateForm()
-      let tempArray = [...state.selectedServices]
-      // if (isInvoiceCreated) {
-      //   tempArray = []
-      //   setFeesData([])
-      //   setInvoiceInfo(null)
-      //   setIsInvoiceCreated(false)
-      // }
-      tempArray.push(values)
-      console.log(tempArray)
+    debugger
+    if (formRef.current) formRef.current.validateForm()
+    let tempArray = [...state.selectedServices]
+    if (!!state.invoiceInfo) {
+      tempArray = []
+      // setFeesData([])
+      // setInvoiceInfo(null)
+      // setIsInvoiceCreated(false)
+      dispatch(reset())
+    }
+    tempArray.push(values)
+    console.log(tempArray)
 
-      calculateFees(tempArray)
-    },
-    [state.selectedServices]
-  )
+    calculateFees(tempArray)
+  }
 
   function calculateFees(_selectedServices) {
     setIsAddLoading(true)

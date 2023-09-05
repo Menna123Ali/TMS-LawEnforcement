@@ -10,11 +10,11 @@ const Logic = () => {
 
   const formInvoiceRef = useRef()
   const state = useSelector((state) => {
-    const { selectedServices } = state.onRoadInvoice
-    return { selectedServices }
+    const { selectedServices, invoiceInfo } = state.onRoadInvoice
+    return { selectedServices, invoiceInfo }
   }, shallowEqual)
   const [isCreateInvoiceLoading, setIsCreateInvoiceLoading] = useState(false)
-  const [isInvoiceCreated, setIsInvoiceCreated] = useState(false)
+  // const [isInvoiceCreated, setIsInvoiceCreated] = useState(false)
   const { addFlashMessage } = UseFlashMessage()
 
   const onCreateInvoice = (values) => {
@@ -84,7 +84,7 @@ const Logic = () => {
             ])
           )
 
-          setIsInvoiceCreated(true)
+          // setIsInvoiceCreated(true)
 
           // ResetForm()
           window.scrollTo(0, document.body.scrollHeight)
@@ -104,7 +104,7 @@ const Logic = () => {
   const onReset = () => {
     dispatch(reset())
   }
-  return { formInvoiceRef, onCreateInvoice, isCreateInvoiceLoading, isInvoiceCreated, onReset }
+  return { formInvoiceRef, onCreateInvoice, isCreateInvoiceLoading, invoiceInfo: state.invoiceInfo, onReset }
 }
 
 export default Logic

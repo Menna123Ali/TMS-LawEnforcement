@@ -3,7 +3,7 @@ import { StyledTablePagination } from './AppTable.styles'
 import React from 'react'
 import dotPropImmutable from 'dot-prop-immutable'
 import Logic from './logic'
-import EnhancedTableHead from '../../EnhancedTableHead/EnhancedTableHead'
+import EnhancedTableHead from '../EnhancedTableHead/EnhancedTableHead'
 
 const AppTable = ({ className, rows, columns, orderColumn, orderDirection = 'asc', size = 'medium', perPage = 10 }) => {
   const { order, orderBy, visibleRows, page, rowsPerPage, emptyRows, handleChangePage, handleChangeRowsPerPage, handleRequestSort } = Logic(rows, perPage, orderDirection, orderColumn)

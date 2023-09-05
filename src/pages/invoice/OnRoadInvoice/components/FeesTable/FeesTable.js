@@ -5,12 +5,13 @@ import { Paper } from '@mui/material'
 import Logic from './logic'
 import CollapsiblePanel from '../../../../../components/common/CollapsiblePanel/CollapsiblePanel.styles'
 import CustomerDataForm from '../CustomerDataForm/CustomerDataForm.styles'
+import InvoicePayment from '../../../components/InvoicePayment/InvoicePayment.styles'
 
 const FeesTable = ({ className }) => {
-  const { columns, expanded, setExpanded, formInvoiceRef, onCreateInvoice } = Logic()
+  const { columns, expanded, setExpanded, onPaySuccess, onReset } = Logic()
   const state = useSelector((state) => {
-    const { feesData } = state.onRoadInvoice
-    return { feesData }
+    const { feesData, invoiceInfo } = state.onRoadInvoice
+    return { feesData, invoiceInfo }
   }, shallowEqual)
 
   return (
@@ -24,6 +25,7 @@ const FeesTable = ({ className }) => {
           <CustomerDataForm />
         </CollapsiblePanel>
       )}
+      {state.invoiceInfo && <InvoicePayment data={state.invoiceInfo} onPaySuccess={onPaySuccess} onReset={onReset} resetButtonLabel="New Invoice" />}
     </div>
   )
 }

@@ -58,13 +58,16 @@ const StyledFileUpload = styled(FileUpload)(({ theme }) => ({
   },
 }))
 
-export const StyledAvatar = styled(Avatar)(({ theme, errormessage }) => ({
+export const StyledAvatar = styled(Avatar, {
+  // Configure which props should be forwarded on DOM
+  shouldForwardProp: (prop) => prop !== 'isError',
+})(({ isError, theme }) => ({
   margin: '0 10px 0 0',
   width: 35,
   height: 35,
   border: `2px solid ${theme.palette.primary.main}`,
   background: theme.palette.primary.main,
-  ...(errormessage && {
+  ...(isError && {
     background: alpha(theme.palette.error.main, 0.5),
     borderColor: 'red',
   }),

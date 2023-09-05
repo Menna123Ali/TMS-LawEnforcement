@@ -6,6 +6,7 @@ import { onRoadInvoiceSlice } from './OnRoadInvoiceSlice'
 
 const OnRoadInvoice = ({ className, pagePermissions }) => {
   UseSliceReset(onRoadInvoiceSlice)
+
   return (
     <AppLayoutPage title="On Road Invoice">
       <SubSearch />

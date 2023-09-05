@@ -4,7 +4,7 @@ import { onRoadInvoiceSlice } from '../../OnRoadInvoiceSlice'
 import { useMemo, useState } from 'react'
 const Logic = () => {
   const dispatch = useDispatch()
-  const { update } = onRoadInvoiceSlice.actions
+  const { update, reset } = onRoadInvoiceSlice.actions
   const [expanded, setExpanded] = useState(true)
 
   const deleteSelectedServices = (index) => {
@@ -25,8 +25,20 @@ const Logic = () => {
     deleteSelectedServices: deleteSelectedServices,
   }
   let columns = useMemo(() => feesColumns(actions), [])
-
-  return { columns, expanded, setExpanded }
+  const onPaySuccess = (data) => {
+    dispatch(
+      update([
+        {
+          prop: 'feesData',
+          value: null,
+        },
+      ])
+    )
+  }
+  const onReset = () => {
+    dispatch(reset())
+  }
+  return { columns, expanded, setExpanded, onPaySuccess, onReset }
 }
 
 export default Logic

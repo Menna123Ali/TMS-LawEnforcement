@@ -97,7 +97,7 @@ const InvoicePayment = ({ className, data, onPaySuccess = (e) => {}, onReset = (
                     {isGenerating ? 'Generating' : 'Print Invoice'}
                   </AppButton>
 
-                  <AppButton onClick={onReset} variant="outlined" color="secondary" type="button" className="searchButton">
+                  <AppButton onClick={onReset} variant="outlined" color="error" type="button" className="searchButton">
                     {resetButtonLabel}
                   </AppButton>
                 </Box>

@@ -77,9 +77,7 @@ export const addInvoice = async ({ payload, onSuccess, onError = () => {}, onCom
 }
 export const printInvoice = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
   ReportAxios.get(`/Export/NewInvoiceReport?reportParamsURL=InvoiceId:${payload?.nInvoiceId};`, {
-    params: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
+    responseType: 'blob',
   })
     .then(function (response) {
       onSuccess(response)

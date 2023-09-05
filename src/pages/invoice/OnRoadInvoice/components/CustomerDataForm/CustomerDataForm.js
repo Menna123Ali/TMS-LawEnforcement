@@ -8,7 +8,7 @@ import AppPhoneMask from '../../../../../components/common/AppPhoneMask/AppPhone
 import AppButton from '../../../../../components/common/AppButton/AppButton.styles'
 
 const CustomerDataForm = ({ className }) => {
-  const { formInvoiceRef, isCreateInvoiceLoading, isInvoiceCreated, onCreateInvoice, onReset } = Logic()
+  const { formInvoiceRef, isCreateInvoiceLoading, invoiceInfo, onCreateInvoice, onReset } = Logic()
 
   return (
     <div className={className}>
@@ -24,13 +24,13 @@ const CustomerDataForm = ({ className }) => {
                   </div>
                   <Grid container justify="flex-start" flex={1} spacing={2}>
                     <Grid item sm={4} xs={12}>
-                      <AppField disabled={isInvoiceCreated} name="SCustomerName" className="required" label="Customer Name" variant="outlined" fullWidth error={touched.SCustomerName && !!errors.SCustomerName} helperText={touched.SCustomerName && errors.SCustomerName} />
+                      <AppField disabled={!!invoiceInfo} name="SCustomerName" className="required" label="Customer Name" variant="outlined" fullWidth error={touched.SCustomerName && !!errors.SCustomerName} helperText={touched.SCustomerName && errors.SCustomerName} />
                     </Grid>
                     <Grid item sm={4} xs={12}>
-                      <AppField as={AppPhoneMask} disabled={isInvoiceCreated} setFieldValue={setFieldValue} className="required" label="Customer Phone" name="SCustomerPhone" variant="outlined" fullWidth error={touched.SCustomerPhone && !!errors.SCustomerPhone} helperText={touched.SCustomerPhone && errors.SCustomerPhone} autoComplete="off" />
+                      <AppField as={AppPhoneMask} disabled={!!invoiceInfo} setFieldValue={setFieldValue} className="required" label="Customer Phone" name="SCustomerPhone" variant="outlined" fullWidth error={touched.SCustomerPhone && !!errors.SCustomerPhone} helperText={touched.SCustomerPhone && errors.SCustomerPhone} autoComplete="off" />
                     </Grid>
 
-                    {!isInvoiceCreated && (
+                    {!!!invoiceInfo && (
                       <Grid item sm={12} xs={12}>
                         <Box display="flex" justifyContent={'flex-end'}>
                           <div>

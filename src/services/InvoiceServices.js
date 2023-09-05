@@ -1,4 +1,4 @@
-import { cacheAxiosApi, createCancelTokenHandler } from './axios'
+import { ReportAxios, cacheAxiosApi, createCancelTokenHandler } from './axios'
 import { GetCacheVersion } from '../utils/common'
 // creating the cancel token handler object
 const cancelTokenHandlerObject = createCancelTokenHandler(['getAllService'])
@@ -65,6 +65,52 @@ export const onPayInvoice = async ({ payload, onSuccess, onError = () => {}, onC
 export const addInvoice = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
   cacheAxiosApi
     .post('/api/Invoice/AddInvoice', payload)
+    .then(function (response) {
+      onSuccess(response)
+    })
+    .catch((error) => {
+      onError(error)
+    })
+    .finally(() => {
+      onComplete()
+    })
+}
+export const printInvoice = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  ReportAxios.get(`/Export/NewInvoiceReport?reportParamsURL=InvoiceId:${payload?.nInvoiceId};`, {
+    params: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
+    .then(function (response) {
+      onSuccess(response)
+    })
+    .catch((error) => {
+      onError(error)
+    })
+    .finally(() => {
+      onComplete()
+    })
+}
+export const payWithAttachReceiptForInvoice = async ({ payload, params, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  cacheAxiosApi
+    .post('/api/Invoice/PayWithAttachReceiptForInvoice', payload, {
+      params: {
+        ...params,
+      },
+    })
+    .then(function (response) {
+      onSuccess(response)
+    })
+    .catch((error) => {
+      onError(error)
+    })
+    .finally(() => {
+      onComplete()
+    })
+}
+export const getInvoicePaymentMethod = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  cacheAxiosApi
+    .post('/api/Invoice/GetInvoicePaymentMethod?ver=' + GetCacheVersion('/api/Invoice/GetInvoicePaymentMethod'), payload)
     .then(function (response) {
       onSuccess(response)
     })

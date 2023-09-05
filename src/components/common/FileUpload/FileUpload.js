@@ -34,10 +34,10 @@ const FileUpload = (props) => {
           </div>
         )}
         <PreloadImage value={props.form.values[name]} file={file} imagePreviewUrl={imagePreviewUrl} />
-        <FormControl fullWidth error={errorMessage}>
+        <FormControl fullWidth error={!!errorMessage}>
           <div style={{ display: 'flex', flex: '1', justifyContent: 'space-between' }}>
             <AppButton color="lightgrey" component="label" fullWidth className={'buttonScan'} type="button">
-              <StyledAvatar>
+              <StyledAvatar isError={!!errorMessage}>
                 <ScannerIcon />
               </StyledAvatar>
               <span>{title}</span>
@@ -56,7 +56,7 @@ const FileUpload = (props) => {
               />
             </AppButton>
             <AppButton color="lightgrey" component="label" className={'buttonUpload'} type="button">
-              <StyledAvatar>
+              <StyledAvatar isError={!!errorMessage}>
                 <CloudUploadIcon />
               </StyledAvatar>
               <input

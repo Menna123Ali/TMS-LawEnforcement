@@ -14,6 +14,10 @@ const Logic = () => {
           prop: 'selectedInvoiceToPay',
           value: row,
         },
+        {
+          prop: 'invoicesSearchResult',
+          value: [],
+        },
       ])
     )
   }

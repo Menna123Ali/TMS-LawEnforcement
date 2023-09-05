@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { theme } from './assets/styles/theme'
 import { ThemeProvider } from '@mui/material'
 import Routes from './utils/routes'

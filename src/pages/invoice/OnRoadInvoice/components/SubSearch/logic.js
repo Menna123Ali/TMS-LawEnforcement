@@ -56,7 +56,6 @@ const Logic = () => {
     // setFormValues(values)
     // setInvoiceData(null)
 
-    debugger
     if (formRef.current) formRef.current.validateForm()
     let tempArray = [...state.selectedServices]
     if (!!state.invoiceInfo) {

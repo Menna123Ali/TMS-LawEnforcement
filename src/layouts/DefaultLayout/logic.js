@@ -34,7 +34,16 @@ const Logic = () => {
           if (!response.data) {
             addFlashMessage({ type: 'warning', message: 'No Menu to render' })
           } else {
-            dispatch(appUpdate([{ prop: 'modulePages', value: response.data }]))
+            const favMenu = response.data
+              .map((item) => item.pages.map((child) => child.pageId + '_Page'))
+              .flat()
+              .reduce((a, v) => ({ ...a, [v]: true }), {})
+            dispatch(
+              appUpdate([
+                { prop: 'modulePages', value: response.data },
+                { prop: 'favMenu', value: favMenu },
+              ])
+            )
           }
         },
       })

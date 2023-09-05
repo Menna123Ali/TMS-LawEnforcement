@@ -9,6 +9,7 @@ export const appSlice = generateSlice({
     token: localStorage.getItem(LOCAL_STORAGE_CONSTANT.TOKEN),
     avatar: localStorage.getItem(LOCAL_STORAGE_CONSTANT.AVATAR),
     userData: JSON.parse(localStorage.getItem(LOCAL_STORAGE_CONSTANT.USERDATA)),
+    favMenu: JSON.parse(localStorage.getItem('favMenu')) || {},
     modulePages: [],
     flashMessages: [],
     cacheData: [],

@@ -11,8 +11,8 @@ const StyledAppBarMain = styled(AppBarMain)(({ theme, openPersistentDrawer }) =>
   boxShadow: 'none',
   ...(openPersistentDrawer && {
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
+      // width: `calc(100% - ${drawerWidth}px)`,
+      // marginLeft: `${drawerWidth}px`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,

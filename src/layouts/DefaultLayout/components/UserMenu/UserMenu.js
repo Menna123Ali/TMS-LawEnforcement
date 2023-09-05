@@ -51,7 +51,7 @@ const UserMenu = ({ className }) => {
     //   console.log('Error in notfications')
     // }
   }
-  
+
   const userMenuClose = () => {
     // appDispatch({ type: "LOGOUT" })
     // appDispatch({ type: "FLASHMESSAGE", flashMessage: "You've been logged out", flashMessageType: "success" })
@@ -116,7 +116,7 @@ const UserMenu = ({ className }) => {
             <ListItemText primary="Logout" />
           </MenuItem>
 
-          <Link to="/Service" className="menuService">
+          {/* <Link to="/Service" className="menuService">
             <MenuItem>
               <ListItemIcon>
                 <MiscellaneousServicesIcon />
@@ -132,7 +132,7 @@ const UserMenu = ({ className }) => {
               </ListItemIcon>
               Agent
             </MenuItem>
-          </Link>
+          </Link> */}
         </Popover>
         {<NotificationPopper {...{ clickAwayHandler, isOpen, setopencounter, counter, anchorEl, setAnchorEl }} />}
         {/* {<SendNotification />} */}

@@ -8,7 +8,7 @@ import InvoicePayment from '../../../components/InvoicePayment/InvoicePayment'
 
 const InvoicesTable = ({ className }) => {
   const [expanded, setExpanded] = useState(true)
-  const { columns, objIsEmpty, onPaySuccess, onReset } = Logic(setExpanded)
+  const { columns, objIsEmpty, onPaySuccess, onReset } = Logic()
 
   const state = useSelector((state) => {
     const { invoicesSearchResult, selectedInvoiceToPay } = state.payInvoice

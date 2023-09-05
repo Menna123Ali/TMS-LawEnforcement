@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Box } from '@mui/material'
 import StyledAppBarMain from './components/AppBarMain/AppBarMain.styles'
-// import StyledAppDrawer from './components/AppDrawer/AppDrawer.styles'
+import StyledAppDrawer from './components/AppDrawer/AppDrawer.styles'
 import { Main } from './DefaultLayout.styles'
 import Logic from './logic'
 import LoadingDotsIcon from '../../components/common/LoadingDotsIcon/LoadingDotsIcon.styles'
@@ -11,16 +11,16 @@ import { shallowEqual, useSelector } from 'react-redux'
 const DefaultLayout = () => {
   const { mobileOpen, openPersistentDrawer, handlePersistentDrawerOpen, handlePersistentDrawerClose, handleDrawerToggle } = Logic()
   const state = useSelector((state) => {
-    const { modulePages, cacheData } = state.app
-    return { modulePages, cacheData }
+    const { modulePages, cacheData, favMenu } = state.app
+    return { modulePages, cacheData, favMenu }
   }, shallowEqual)
-  
+
   return (
     <Box sx={{ display: 'flex' }}>
       <StyledAppBarMain handleDrawerToggle={handleDrawerToggle} openPersistentDrawer={openPersistentDrawer} handlePersistentDrawerOpen={handlePersistentDrawerOpen} />
-      {/* <StyledAppDrawer handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} openPersistentDrawer={openPersistentDrawer} handlePersistentDrawerClose={handlePersistentDrawerClose} /> */}
+      <StyledAppDrawer handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} openPersistentDrawer={openPersistentDrawer} handlePersistentDrawerClose={handlePersistentDrawerClose} />
 
-      <Main openPersistentDrawer={openPersistentDrawer}>
+      <Main openPersistentDrawer={openPersistentDrawer} isExistFavorite={Object.entries(state.favMenu).length > 0}>
         <Suspense fallback={<LoadingDotsIcon />}>{state.modulePages.length > 0 && state.cacheData.length > 0 && <Outlet />}</Suspense>
       </Main>
     </Box>

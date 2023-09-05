@@ -14,7 +14,7 @@ const DefaultLayout = () => {
     const { modulePages, cacheData } = state.app
     return { modulePages, cacheData }
   }, shallowEqual)
-  console.log('DefaultLayout')
+  
   return (
     <Box sx={{ display: 'flex' }}>
       <StyledAppBarMain handleDrawerToggle={handleDrawerToggle} openPersistentDrawer={openPersistentDrawer} handlePersistentDrawerOpen={handlePersistentDrawerOpen} />

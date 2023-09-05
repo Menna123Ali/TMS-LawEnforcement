@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, ThemeProvider } from '@mui/material'
+import { Box, Grid, ThemeProvider } from '@mui/material'
 import printJS from 'print-js'
 // import Test from './pages/test/test'
 import { theme } from './assets/styles/theme'
@@ -412,15 +412,16 @@ function App() {
               <Grid item lg={3} md={4} sm={6} xs={12}>
                 {/* <Field name="attachReceipt" component={FileUpload} title="Attach Receipt" setFileType={setFileType} setFile={setFile} setFieldValue={setFieldValue} helpertext={touched.attachReceipt && errors.attachReceipt} errorMessage={errors.attachReceipt ? errors.attachReceipt : undefined} /> */}
 
-                <StyledButton type="reset">text</StyledButton>
-              </Grid>
-            </Form>
-          )}
-        </Formik>
-        <Grid item lg={3} md={4} sm={6} xs={12}>
-          {/* <Test /> */}
-          {/* <FileUpload setFileType={setFileType} setFile={setFile} setFieldValue={setFieldValue} /> */}
-        </Grid>
+              <StyledButton type="reset">text</StyledButton>
+            </Grid>
+          </Form>
+        )}
+      </Formik>
+      <Grid item lg={3} md={4} sm={6} xs={12}>
+        {/* <Test /> */}
+        {/* <FileUpload setFileType={setFileType} setFile={setFile} setFieldValue={setFieldValue} /> */}
+      </Grid>
+     
       </ThemeProvider>
     </>
   )

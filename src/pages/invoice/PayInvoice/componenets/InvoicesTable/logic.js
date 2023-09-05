@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 
 const Logic = () => {
   const dispatch = useDispatch()
-  const { update } = payInvoiceSlice.actions
+  const { update, reset } = payInvoiceSlice.actions
 
   const payInvoice = (row) => {
     dispatch(
@@ -30,7 +30,21 @@ const Logic = () => {
     }
     return false
   }
-  return { columns, objIsEmpty }
+
+  const onPaySuccess = (data) => {
+    dispatch(
+      update([
+        {
+          prop: 'selectedInvoiceToPay',
+          value: {},
+        },
+      ])
+    )
+  }
+  const onReset = () => {
+    dispatch(reset())
+  }
+  return { columns, objIsEmpty, onPaySuccess, onReset }
 }
 
 export default Logic

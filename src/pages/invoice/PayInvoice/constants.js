@@ -42,6 +42,10 @@ export const columns = (actions) => [
     id: 'pay',
     label: 'Pay',
     align: 'center',
-    renderColumn: (row) => <ButtonColumn onClick={() => actions.payInvoice(row)}>Pay</ButtonColumn>,
+    renderColumn: (row) => (
+      <div onClick={() => actions.payInvoice(row)}>
+        <ButtonColumn>Pay</ButtonColumn>
+      </div>
+    ),
   },
 ]

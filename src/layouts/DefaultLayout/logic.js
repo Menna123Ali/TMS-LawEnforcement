@@ -44,6 +44,7 @@ const Logic = () => {
                 { prop: 'favMenu', value: favMenu },
               ])
             )
+            localStorage.setItem('favMenu', JSON.stringify(favMenu))
           }
         },
       })

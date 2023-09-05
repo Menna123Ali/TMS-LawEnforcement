@@ -6,27 +6,30 @@ export const initialState = {
   subType: null,
   plateNumber: '',
   vin: '',
+  selectedServices: [],
 }
 
-export const validateSchema = Yup.object().shape({
-  serviceType: Yup.object().required('This field is required'),
-  // .test('serviceReapet', 'this service type has been choosen before', (val) => selectedServices.filter((ele) => ele.serviceType.nServiceId == val?.nServiceId).length == 0 || val?.bCabBeDuplicatedForAnInvoice)
-  category: Yup.object().required('This field is required'),
-  subType: Yup.object().required('This field is required'),
-  plateNumber: Yup.string()
-    .when('serviceType', {
-      is: (val) => val?.bIsPlateNumberrequired,
-      then: (schema) => schema.required('This field is required'),
-    })
-    .matches(/^[^-\s][a-zA-Z0-9_\s-]+$/, 'This field cannot accept special character')
-    .nullable(),
-  vin: Yup.mixed()
-    .when('serviceType', {
-      is: (val) => val?.bIsVinrequired,
-      then: (schema) => schema.required('This field is required'),
-    })
-    .nullable(),
-})
+export const validateSchema = (selectedServices) =>
+  Yup.object().shape({
+    serviceType: Yup.object()
+      .required('This field is required')
+      .test('serviceReapet', 'this service type has been choosen before', (val) => selectedServices.filter((ele) => ele.serviceType.nServiceId == val?.nServiceId).length == 0 || val?.bCabBeDuplicatedForAnInvoice),
+    category: Yup.object().required('This field is required'),
+    subType: Yup.object().required('This field is required'),
+    plateNumber: Yup.string()
+      .when('serviceType', {
+        is: (val) => val?.bIsPlateNumberrequired,
+        then: (schema) => schema.required('This field is required'),
+      })
+      .matches(/^[^-\s][a-zA-Z0-9_\s-]+$/, 'This field cannot accept special character')
+      .nullable(),
+    vin: Yup.mixed()
+      .when('serviceType', {
+        is: (val) => val?.bIsVinrequired,
+        then: (schema) => schema.required('This field is required'),
+      })
+      .nullable(),
+  })
 export const columns = (actions) => [
   { id: 'snameWithotCode', label: 'Service', align: 'center', renderColumn: 'service.snameWithotCode' },
   { id: 'VehicleType', label: 'Vehicle Type', align: 'center', renderColumn: 'subType.sSubTypeNameEn' },

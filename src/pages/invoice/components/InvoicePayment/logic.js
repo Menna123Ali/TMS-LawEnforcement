@@ -17,34 +17,27 @@ const Logic = (data, onPaySuccess) => {
     setIsGenerating(true)
 
     try {
-      // let response = await fetch(`${currentEnvURL.reportApi}Export/NewInvoiceReport?reportParamsURL=InvoiceId:${data?.nInvoiceId};`, {
-      //   method: 'Get',
-      //   headers: new Headers({
-      //     Authorization: `Bearer ${appState.token}`,
-      //     'Content-Type': 'application/x-www-form-urlencoded',
-      //   }),
-      // })
-      // let reportData = await response.blob()
-      // var pdfUrl = URL.createObjectURL(reportData)
-
-      printInvoice({
+      await printInvoice({
         payload: { nInvoiceId: data?.nInvoiceId },
         onSuccess: (response) => {
-          let reportData = response.blob()
-          var pdfUrl = URL.createObjectURL(reportData)
-          printJS(pdfUrl)
+          if (response.data) {
+            const pdfUrl = URL.createObjectURL(response.data)
+            printJS(pdfUrl)
+          }
+          setIsGenerating(false)
         },
       })
     } catch (e) {
-      setIsSubmitting(false)
       var msg = 'Server Request Failed'
       if (e.response != null && e.response.data != null && !e.response.data.errors) {
         msg = e.response.data
       }
-      addFlashMessage({ type: 'error', message: msg })
-    } finally {
       setIsGenerating(false)
+      addFlashMessage({ type: 'error', message: msg })
     }
+    // finally {
+    //   setIsGenerating(false)
+    // }
   }
 
   useEffect(() => {

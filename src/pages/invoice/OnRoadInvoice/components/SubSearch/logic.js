@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { calculateInvoiceFees, getAllService, getCategoriesWithSubTypes } from '../../../../../services/InvoiceServices'
 import UseFlashMessage from '../../../../../utils/hooks/UseFlashMessage'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { onRoadInvoiceSlice } from '../../OnRoadInvoiceSlice'
+import { validateSchema } from '../../constants'
 
 const Logic = () => {
   const [applicationMainTypeOptions, setApplicationMainTypeOptions] = useState([])
@@ -143,7 +144,7 @@ const Logic = () => {
       },
     })
   }, [])
-
-  return { formRef, isAddLoading, applicationMainTypeOptions, categoryOptions, handleChangeCategory, setCategoryOptions, handleChangeApplicationType, applicationSubTypeOptions, setApplicationSubTypeOptions, onAddServiceSubmit }
+  const validateSchemaUpdated = useMemo(() => validateSchema(state.selectedServices), [state.selectedServices])
+  return { validateSchemaUpdated, formRef, isAddLoading, applicationMainTypeOptions, categoryOptions, handleChangeCategory, setCategoryOptions, handleChangeApplicationType, applicationSubTypeOptions, setApplicationSubTypeOptions, onAddServiceSubmit }
 }
 export default Logic

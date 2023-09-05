@@ -35,3 +35,8 @@ body {
   border-width: 0;
   border-style: solid;
 }
+.required > .MuiFormLabel-root:before,
+.required > .MuiTextField-root > .MuiFormLabel-root:before {
+  color: red;
+  content: '* ';
+}

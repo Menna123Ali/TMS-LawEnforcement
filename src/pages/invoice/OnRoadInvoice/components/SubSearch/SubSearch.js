@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Grid, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
-import { initialState, validateSchema } from '../../constants'
-import { useRef } from 'react'
+import { initialState } from '../../constants'
 import AppField from '../../../../../components/common/AppField/AppField.styles'
 import FormikAutocomplete from '../../../../../components/common/FormikAutocomplete/FormikAutocomplete'
 import Logic from './logic'
@@ -9,12 +8,12 @@ import AppButton from '../../../../../components/common/AppButton/AppButton.styl
 import SearchIcon from '@mui/icons-material/Search'
 
 const SubSearch = ({ className }) => {
-  const { formRef, isAddLoading, applicationMainTypeOptions, categoryOptions, applicationSubTypeOptions, onAddServiceSubmit, setApplicationSubTypeOptions, handleChangeCategory, setCategoryOptions, handleChangeApplicationType } = Logic()
+  const { validateSchemaUpdated, formRef, isAddLoading, applicationMainTypeOptions, categoryOptions, applicationSubTypeOptions, onAddServiceSubmit, setApplicationSubTypeOptions, handleChangeCategory, setCategoryOptions, handleChangeApplicationType } = Logic()
 
   return (
     <div className={className}>
-      <Formik enableReinitialize={false} innerRef={formRef} initialValues={initialState} validationSchema={validateSchema} onSubmit={onAddServiceSubmit}>
-        {({ touched, errors, resetForm, setFieldValue, values, validateForm, submitForm }) => {
+      <Formik enableReinitialize={false} innerRef={formRef} initialValues={initialState} validationSchema={validateSchemaUpdated} onSubmit={onAddServiceSubmit}>
+        {({ touched, errors, resetForm, setFieldValue, values }) => {
           return (
             <Form>
               <div className="searchContainer">

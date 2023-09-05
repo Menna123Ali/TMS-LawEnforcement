@@ -8,6 +8,6 @@ const StyledDashboard = styled(Dashboard)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.primary.main,
   fontSize: '3rem',
-  // padding: '150px 0 0 0',
+  height: '100%',
 }))
 export default StyledDashboard

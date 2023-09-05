@@ -10,7 +10,6 @@ import AvatarImage from '../../../../assets/images/logo-mini.png'
 import NotificationPopper from '../NotificationPopper'
 
 const UserMenu = ({ className }) => {
-  console.log(className)
   const [userMenu, setUserMenu] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -71,13 +70,13 @@ const UserMenu = ({ className }) => {
     <div className={className}>
       <UserMenuContainer>
         {/* {props.TimeoutCountdown && props.TimeoutCountdown < 10 ? <div className="counterItem">{props.TimeoutCountdown && <div>Session Ends In {props.TimeoutCountdown} s</div>}</div> : ''} */}
-        <Button className="min-h-40" onClick={userMenuClick}>
+        <Button className="min-h-40 userBtn" onClick={userMenuClick}>
           <div className="userText">
             <Typography className="userTitle">{state.userData.name}</Typography>
           </div>
           <Avatar className="avatar" alt="user photo" src={AvatarImage} />
         </Button>
-        <div style={{ position: 'relative' }}>
+        {/* <div style={{ position: 'relative' }}>
           <Badge
             color="secondary"
             badgeContent={1}
@@ -93,7 +92,7 @@ const UserMenu = ({ className }) => {
               <NotificationsIcon />
             </Avatar>
           </Button>
-        </div>
+        </div> */}
         <Popover
           open={Boolean(userMenu)}
           anchorEl={userMenu}

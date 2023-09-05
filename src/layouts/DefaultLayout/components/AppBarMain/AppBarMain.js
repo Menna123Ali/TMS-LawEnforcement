@@ -18,11 +18,11 @@ const AppBarMain = ({ className, openPersistentDrawer, handleDrawerToggle, handl
           </Hidden>
         )}
 
-        <Hidden smUp implementation="css">
+        {/* <Hidden smUp implementation="css">
           <MenuButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle}>
             <MenuIcon />
           </MenuButton>
-        </Hidden>
+        </Hidden> */}
 
         <UserMenuContainer>
           <StyledUserMenu />

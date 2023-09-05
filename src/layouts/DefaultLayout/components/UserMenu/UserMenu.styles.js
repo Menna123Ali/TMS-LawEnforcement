@@ -6,7 +6,7 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
   flex: '1',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  marginLeft: 'auto',
+  margin: 'auto',
   
   [theme.breakpoints.down('md')]: {
     display: 'block',
@@ -91,7 +91,10 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
   },
   '&  .avatar': {
     background: theme.palette.primary.main,
-    margin: '0 5px',
+    marginLeft: '5px',
+  },
+  '& .userBtn': {
+    paddingRight: '0'
   },
   '&  .userText': {
     margin: '0 5px',

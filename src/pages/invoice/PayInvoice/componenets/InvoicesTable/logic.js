@@ -3,17 +3,20 @@ import { useDispatch } from 'react-redux'
 import { payInvoiceSlice } from '../../PayInvoiceSlice'
 import { useMemo } from 'react'
 
-const Logic = (setExpanded) => {
+const Logic = () => {
   const dispatch = useDispatch()
   const { update, reset } = payInvoiceSlice.actions
 
   const payInvoice = (row) => {
-    setExpanded(false)
     dispatch(
       update([
         {
           prop: 'selectedInvoiceToPay',
           value: row,
+        },
+        {
+          prop: 'invoicesSearchResult',
+          value: [],
         },
       ])
     )

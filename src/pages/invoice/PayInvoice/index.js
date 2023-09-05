@@ -8,7 +8,7 @@ const PayInvoice = ({ pagePermissions }) => {
   UseSliceReset(payInvoiceSlice)
 
   return (
-    <AppLayoutPage title="Pay Invoice">
+    <AppLayoutPage title="On Pay Invoice">
       <SubSearch />
       <InvoicesTable />
     </AppLayoutPage>

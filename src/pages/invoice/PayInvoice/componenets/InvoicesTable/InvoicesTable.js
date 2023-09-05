@@ -1,27 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AppTable from '../../../../../components/common/AppTable/AppTable.styles'
 import { shallowEqual, useSelector } from 'react-redux'
 import { Paper } from '@mui/material'
 import Logic from './logic'
 import CollapsiblePanel from '../../../../../components/common/CollapsiblePanel/CollapsiblePanel.styles'
+import InvoicePayment from '../../../components/InvoicePayment/InvoicePayment'
 
 const InvoicesTable = ({ className }) => {
-  const { columns, objIsEmpty } = Logic()
+  const [expanded, setExpanded] = useState(true)
+  const { columns, objIsEmpty, onPaySuccess, onReset } = Logic()
+
   const state = useSelector((state) => {
-    const { invoicesSearchResult } = state.payInvoice
-    return { invoicesSearchResult }
+    const { invoicesSearchResult, selectedInvoiceToPay } = state.payInvoice
+    return { invoicesSearchResult, selectedInvoiceToPay }
   }, shallowEqual)
-  const [expanded, setExpanded] = React.useState(true)
 
   return (
     <div className={className}>
-      {!objIsEmpty(state.invoicesSearchResult) && (
+      {state.invoicesSearchResult.length > 0 && (
         <CollapsiblePanel expanded={expanded} onClick={() => setExpanded((expand) => !expand)} title="Search Result">
           <Paper className="tableContainer">
             <AppTable rows={state.invoicesSearchResult} columns={columns} />
           </Paper>
         </CollapsiblePanel>
       )}
+      {!objIsEmpty(state.selectedInvoiceToPay) && <InvoicePayment data={state.selectedInvoiceToPay} onPaySuccess={onPaySuccess} onReset={onReset} resetButtonLabel="Reset" />}
     </div>
   )
 }

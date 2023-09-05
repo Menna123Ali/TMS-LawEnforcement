@@ -1,5 +1,5 @@
-import PaymentIcon from '@mui/icons-material/Payment'
 import * as Yup from 'yup'
+import ButtonColumn from '../../../components/common/ButtonColumn/ButtonColumn.styles'
 
 export const initialState = {
   invoiceNumber: '',
@@ -44,7 +44,7 @@ export const columns = (actions) => [
     align: 'center',
     renderColumn: (row) => (
       <div onClick={() => actions.payInvoice(row)}>
-        <PaymentIcon />
+        <ButtonColumn>Pay</ButtonColumn>
       </div>
     ),
   },

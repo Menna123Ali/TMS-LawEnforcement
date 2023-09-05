@@ -10,11 +10,14 @@ const Logic = () => {
   const formRef = useRef()
   const { addFlashMessage } = UseFlashMessage()
   const dispatch = useDispatch()
-  const { update } = payInvoiceSlice.actions
+  const { update, reset } = payInvoiceSlice.actions
 
   const onSubmitHandler = (values, { resetForm }) => {
-
+    dispatch(
+      reset()
+    )
     setIsAddLoading(true)
+    
     onPayInvoice({
       payload: {
         sInvoiceNumber: values.invoiceNumber?.trim(),
@@ -25,17 +28,8 @@ const Logic = () => {
       onSuccess: (res) => {
         if (res.data.length === 0) {
           addFlashMessage({ type: 'warning', message: 'No results found Or Invoice Already Paid' })
-          dispatch(
-            update([
-              {
-                prop: 'invoicesSearchResult',
-                value: [],
-              },
-            ])
-          )
         } else {
           const resDateFormatted = res.data.map((invoice) => {
-            debugger
             return {
               ...invoice,
               dtCreationDate: dayjs(invoice.dtCreationDate).format('DD-MM-YYYY'),

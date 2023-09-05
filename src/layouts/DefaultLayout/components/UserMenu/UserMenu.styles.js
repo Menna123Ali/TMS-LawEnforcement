@@ -17,7 +17,7 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
   },
   '& .cards-container': {
     [theme.breakpoints.up('md')]: {
-    maxWidth: '60%'
+    maxWidth: '825px'
     },
   },
 
@@ -41,7 +41,7 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
       minWidth: 'calc(50% - 8px)',
     },
     [theme.breakpoints.up('sm')]: {
-      minWidth: 'calc(33% - 16px)',
+      minWidth: 'calc(33% - 8px)',
     },
     [theme.breakpoints.up('md')]: {
       minWidth: '150px',
@@ -52,7 +52,8 @@ const StyledUserMenu = styled(UserMenu)(({ theme }) => ({
       display: 'block',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      textAlign: 'center'
     }
   },
   '&  .favMenu': {

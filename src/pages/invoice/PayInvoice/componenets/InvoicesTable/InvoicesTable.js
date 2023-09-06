@@ -4,7 +4,7 @@ import { shallowEqual, useSelector } from 'react-redux'
 import { Paper } from '@mui/material'
 import Logic from './logic'
 import CollapsiblePanel from '../../../../../components/common/CollapsiblePanel/CollapsiblePanel.styles'
-import InvoicePayment from '../../../components/InvoicePayment/InvoicePayment'
+import InvoicePayment from '../../../components/InvoicePayment/InvoicePayment.styles'
 
 const InvoicesTable = ({ className }) => {
   const [expanded, setExpanded] = useState(true)

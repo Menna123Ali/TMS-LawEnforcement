@@ -148,7 +148,7 @@ const UserMenu = ({ className }) => {
                       item.pages.map((child) => {
                         if (child.pageId + '_Page' === itemsSelected[0]) {
                           return (
-                            <Button key={child.pageId} size="small" component={Link} to={child.pageUrl} color="primary" className="favBTN" startIcon={<Icon>{child.pageIcon.iconName}</Icon>}>
+                            <Button key={child.pageId} title={child.pageName} size="small" component={Link} to={child.pageUrl} color="primary" className="favBTN" startIcon={<Icon>{child.pageIcon.iconName}</Icon>}>
                               <span className="card-txt">{child.pageName}</span>
                             </Button>
                           )

@@ -13,12 +13,11 @@ const StyledSubSearch = styled(SubSearch)(({ theme }) => ({
         display: 'flex',
         '& .MuiOutlinedInput-root': { borderTopRightRadius: 0, borderBottomRightRadius: 0 },
         '& .searchVinBtn': {
-          background: theme.palette.primary.main,
+          // background: theme.palette.primary.main,
           borderRadius: '0px 5px 5px 0px',
-          height: '50px',
-          minWidth: '16%',
+          minWidth: '5em',
           '&:hover': {
-            background: theme.palette.primary.main,
+            // background: theme.palette.primary.main,
           },
           '& svg': {
             color: 'white',

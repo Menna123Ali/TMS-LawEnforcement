@@ -18,7 +18,10 @@ export const validationSchema = Yup.object().shape({
       otherwise: (schema) => schema.optional(),
     })
     .test('fileSize', 'File too large, max allowed size is ' + maxFilesSizes.dl.attach / 1000 + ' KB', (value) => {
-      return value && (value?.size > 0 ? value.size : value?.replace(/=/g, '').length * 0.75) < parseInt(maxFilesSizes.dl.attach)
+      if (!!value) {
+        return (value?.size > 0 ? value.size : value?.replace(/=/g, '').length * 0.75) < parseInt(maxFilesSizes.dl.attach)
+      }
+      return true
     })
     .nullable(),
   paymentReference: Yup.mixed()

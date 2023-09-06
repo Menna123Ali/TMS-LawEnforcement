@@ -1,14 +1,16 @@
 import { Box, CircularProgress, Grid, TextField } from '@mui/material'
-import { Field, Form, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { initialState } from '../../constants'
 import AppField from '../../../../../components/common/AppField/AppField.styles'
 import FormikAutocomplete from '../../../../../components/common/FormikAutocomplete/FormikAutocomplete'
 import Logic from './logic'
 import AppButton from '../../../../../components/common/AppButton/AppButton.styles'
 import SearchIcon from '@mui/icons-material/Search'
+import SearchVinModal from '../../../components/SearchVinModal/SearchVinModal.styles'
+import ConfirmationDialog from '../../../../../components/common/ConfirmationDialog/ConfirmationDialog'
 
 const SubSearch = ({ className }) => {
-  const { validateSchemaUpdated, formRef, isAddLoading, applicationMainTypeOptions, categoryOptions, applicationSubTypeOptions, onAddServiceSubmit, setApplicationSubTypeOptions, handleChangeCategory, setCategoryOptions, handleChangeApplicationType } = Logic()
+  const { validateSchemaUpdated, decodeVinInfo, formRef, showDialog, isAddLoading, applicationMainTypeOptions, setShowDialog, categoryOptions, applicationSubTypeOptions, isLoading, isModalOpen, setIsModalOpen, handleLoadDecodeVin, onAddServiceSubmit, setApplicationSubTypeOptions, handleChangeCategory, setCategoryOptions, handleChangeApplicationType } = Logic()
 
   return (
     <div className={className}>
@@ -90,18 +92,8 @@ const SubSearch = ({ className }) => {
                           error={touched.vin && !!errors.vin}
                           helperText={touched.vin && errors.vin}
                         />
-                        <AppButton
-                          onClick={() => {
-                            // loadDecodeVin()
-                          }}
-                          className="searchVinBtn"
-                          variant="contained"
-                          color="primary"
-                          size="small"
-                          // disabled={!Vin || DisableVin || isLoading}
-                        >
-                          <SearchIcon />
-                          {/* {isLoading ? <CircularProgress size={25} /> : <SearchIcon />} */}
+                        <AppButton type="button" onClick={() => handleLoadDecodeVin(values.vin)} className="searchVinBtn" size="small" disabled={!values.vin || isLoading}>
+                          {isLoading ? <CircularProgress size={25} /> : <SearchIcon />}
                         </AppButton>
                       </Grid>
                     )}
@@ -120,6 +112,21 @@ const SubSearch = ({ className }) => {
           )
         }}
       </Formik>
+      {decodeVinInfo && decodeVinInfo?.vinDecodingVehicleInfo && <SearchVinModal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} decodeVinInfo={decodeVinInfo} />}
+
+      {decodeVinInfo && (
+        <ConfirmationDialog
+          onClick={() => {
+            if (formRef.current.values.vin) window.open(`https://www.vindecoder.pl/${formRef.current.values.vin}`, '_blank')
+            setShowDialog(false)
+          }}
+          onClose={() => setShowDialog(false)}
+          visible={showDialog}
+          title="Are you sure you want to Search about Vin ?"
+        >
+          <div>{decodeVinInfo?.vinDecodingResultCode?.vinDecodingResultMsg}</div>
+        </ConfirmationDialog>
+      )}
     </div>
   )
 }

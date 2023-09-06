@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { calculateInvoiceFees, getAllService, getCategoriesWithSubTypes } from '../../../../../services/InvoiceServices'
+import { calculateInvoiceFees, getAllService, getCategoriesWithSubTypes, loadDecodeVin } from '../../../../../services/InvoiceServices'
 import UseFlashMessage from '../../../../../utils/hooks/UseFlashMessage'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { onRoadInvoiceSlice } from '../../OnRoadInvoiceSlice'
@@ -19,6 +19,11 @@ const Logic = () => {
     const { selectedServices, invoiceInfo } = state.onRoadInvoice
     return { selectedServices, invoiceInfo }
   }, shallowEqual)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [decodeVinInfo, setDecodeVinInfo] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [showDialog, setShowDialog] = useState(false)
+
   // Load categories
   const handleChangeApplicationType = (value) => {
     // setIsSub(true)
@@ -132,6 +137,30 @@ const Logic = () => {
       },
     })
   }
+  //load Decode Vin Info
+  const handleLoadDecodeVin = async (vin) => {
+    console.log(formRef.current.values)
+    setIsLoading(true)
+    loadDecodeVin({
+      payload: { vin },
+      onSuccess: (response) => {
+        if (response.data?.vinDecodingResult?.model?.vinDecodingInfo?.length < 7) {
+          setDecodeVinInfo(response.data?.vinDecodingResult?.model)
+          setShowDialog(true)
+        } else {
+          if (response.data?.vinDecodingResult?.model?.vinDecodingVehicleInfo) {
+            setDecodeVinInfo(response.data?.vinDecodingResult?.model)
+            setIsModalOpen(true)
+          } else {
+            addFlashMessage({ type: 'error', message: 'Failed to load Vin Info' })
+          }
+        }
+      },
+      onComplete: () => {
+        setIsLoading(false)
+      },
+    })
+  }
   useEffect(() => {
     //load Service
     getAllService({
@@ -145,6 +174,6 @@ const Logic = () => {
     })
   }, [])
   const validateSchemaUpdated = useMemo(() => validateSchema(state.selectedServices), [state.selectedServices])
-  return { validateSchemaUpdated, formRef, isAddLoading, applicationMainTypeOptions, categoryOptions, handleChangeCategory, setCategoryOptions, handleChangeApplicationType, applicationSubTypeOptions, setApplicationSubTypeOptions, onAddServiceSubmit }
+  return { decodeVinInfo, validateSchemaUpdated, formRef, isAddLoading, applicationMainTypeOptions, showDialog, categoryOptions, isLoading, isModalOpen, setShowDialog, setIsModalOpen, handleLoadDecodeVin, handleChangeCategory, setCategoryOptions, handleChangeApplicationType, applicationSubTypeOptions, setApplicationSubTypeOptions, onAddServiceSubmit }
 }
 export default Logic

@@ -119,3 +119,16 @@ export const getInvoicePaymentMethod = async ({ payload, onSuccess, onError = ()
       onComplete()
     })
 }
+export const loadDecodeVin = async ({ payload, onSuccess, onError = () => {}, onComplete = () => {} }) => {
+  cacheAxiosApi
+    .get('/api/Invoice/DecodeVin?vin=' + payload.vin)
+    .then(function (response) {
+      onSuccess(response)
+    })
+    .catch((error) => {
+      onError(error)
+    })
+    .finally(() => {
+      onComplete()
+    })
+}

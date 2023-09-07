@@ -72,7 +72,7 @@ const UserMenu = ({ className }) => {
         {/* {props.TimeoutCountdown && props.TimeoutCountdown < 10 ? <div className="counterItem">{props.TimeoutCountdown && <div>Session Ends In {props.TimeoutCountdown} s</div>}</div> : ''} */}
         <Button className="min-h-40 userBtn" onClick={userMenuClick}>
           <div className="userText">
-            <Typography className="userTitle">{state.userData.name}</Typography>
+            <Typography className="userTitle">{state.userData?.name}</Typography>
           </div>
           <Avatar className="avatar" alt="user photo" src={AvatarImage} />
         </Button>
